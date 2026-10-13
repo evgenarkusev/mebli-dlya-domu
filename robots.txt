@@ -1,0 +1,6 @@
+# Поки сайт є макетом, індексація вимкнена. При запуску замінити на:
+# User-agent: *
+# Allow: /
+# Sitemap: https://evgenarkusev.github.io/mebli-dlya-domu/sitemap.xml
+User-agent: *
+Disallow: /
