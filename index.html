@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Меблі для дому</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: світла тепла сторінка, один темно-зелений акцент, великі фото замість рядів однакових карток */
+:root{
+  --bg:#121A16;--card:#1B2620;--sand:#17211C;--line:#2C3A32;
+  --text:#E8E6DD;--muted:#A3AEA5;
+  --accent:#3F7D5C;--accent-d:#336A4C;--accent-t:#9AD1AE;--gold:#9AD1AE;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Manrope","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;color-scheme:dark}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.01em;text-wrap:balance}
+a{color:inherit;text-decoration:none}
+img{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+section{padding:88px 0;scroll-margin-top:90px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-t);margin-bottom:16px}
+h2{font-size:40px;line-height:1.15;margin-bottom:12px}
+.sub{color:var(--muted);max-width:56ch;margin-bottom:40px}
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 28px;font-weight:600;font-size:15px;border:0;cursor:pointer;border-radius:2px;transition:background .2s}
+.btn:hover{background:var(--accent-d)}
+.btn.line{background:none;color:var(--accent-t);box-shadow:inset 0 0 0 1.5px var(--accent-t)}
+.btn.line:hover{background:var(--accent);color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent-t);outline-offset:3px}
+
+.top{background:var(--sand);font-size:13px;color:var(--text)}
+.top .wrap{display:flex;justify-content:space-between;gap:12px;align-items:center;padding-block:8px;flex-wrap:wrap}
+.lang button{background:none;border:1px solid var(--line);color:var(--text);padding:2px 10px;cursor:pointer;margin-left:6px;font:inherit;font-size:12px;border-radius:2px}
+.lang button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+header{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+header .wrap{display:flex;align-items:center;gap:28px;padding-block:16px}
+.logo{font-family:var(--display);font-size:26px;font-weight:600;white-space:nowrap;color:var(--accent-t)}
+nav{display:flex;gap:26px;flex:1;font-size:14px;font-weight:500}
+nav a{white-space:nowrap;color:var(--text)}
+nav a:hover{color:var(--accent-t)}
+
+.hero{padding:0;background:var(--sand)}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch;padding-block:0}
+.hero .txt{padding-block:96px;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:60px;line-height:1.05;margin-bottom:22px}
+.hero p{color:var(--muted);font-size:18px;max-width:46ch;margin-bottom:34px}
+.hero .btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero .pic{min-height:560px;position:relative}
+.hero .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+.facts{padding:0;background:var(--card);border-bottom:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.fact{padding:30px 28px 30px 0}
+.fact+.fact{padding-left:28px;border-left:1px solid var(--line)}
+.fact h3{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-t);margin-bottom:8px}
+.fact p{font-size:14px;color:var(--muted);line-height:1.5}
+
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px}
+.tile{position:relative;overflow:hidden;background:var(--sand)}
+.tile img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) sepia(.1) brightness(.9);transition:transform .5s}
+.tile:hover img{transform:scale(1.04)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,32,25,.72),rgba(20,32,25,0) 55%)}
+.tile span{position:absolute;left:18px;bottom:14px;z-index:1;color:#fff;font-family:var(--display);font-size:21px;font-weight:500}
+.t-k{grid-column:span 2;grid-row:span 2}.t-k span{font-size:30px;left:24px;bottom:22px}
+.t-kids{grid-column:span 2}
+
+.prods{background:var(--card)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.prod img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.82) sepia(.1) brightness(.9);background:var(--sand);margin-bottom:16px}
+.prod .tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-t);margin-bottom:6px}
+.prod h3{font-size:22px;margin-bottom:4px}
+.prod .spec{font-size:14px;color:var(--muted);margin-bottom:12px}
+.prod .price{font-size:18px;font-weight:700;margin-bottom:14px}
+.prod .price s{font-weight:400;color:var(--muted);font-size:14px;margin-left:8px}
+.prod .btn{padding:11px 22px}
+
+.how{background:#1D382B;color:#F2EEE4}
+.how h2{color:#fff}
+.how .eyebrow{color:#C9D8CD}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border-top:1px solid rgba(255,255,255,.25)}
+.step{padding:28px 28px 0 0}
+.step+.step{padding-left:28px;border-left:1px solid rgba(255,255,255,.25)}
+.step b{display:block;font-family:var(--display);font-size:54px;font-weight:500;line-height:1;color:#C9D8CD;margin-bottom:14px}
+.step h3{font-family:var(--body);font-size:17px;font-weight:700;margin-bottom:6px;color:#fff}
+.step p{font-size:14px;color:#D5DDD6;line-height:1.55}
+
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about img{width:100%;aspect-ratio:5/4;object-fit:cover;filter:saturate(.82) sepia(.1) brightness(.9)}
+.about p{color:var(--muted);margin-bottom:16px;max-width:52ch}
+.about ul{list-style:none;margin:20px 0 28px;display:grid;gap:10px}
+.about li{padding-left:22px;position:relative;font-weight:500}
+.about li::before{content:"";position:absolute;left:0;top:.7em;width:10px;height:2px;background:var(--accent)}
+
+.cta{background:var(--sand)}
+.cta .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.cta h2{margin-bottom:10px}
+.cta p{color:var(--muted)}
+.cta form{display:grid;gap:12px}
+.cta input{padding:15px 16px;border:1px solid var(--line);background:var(--card);font:inherit;border-radius:2px;color:var(--text)}
+.cta .btn{padding:16px}
+.consent{font-size:13px;color:var(--muted);line-height:1.5}
+.consent a{text-decoration:underline;color:var(--accent-t)}
+
+.legal-head{padding:72px 0 0}
+.legal-head h2{margin-bottom:6px}
+#terms,#warranty,#privacy{padding:28px 0}
+.warr>*{max-width:860px}
+.warr h2{font-size:30px}
+.warr .lead{color:var(--muted);margin-bottom:22px}
+.warr details{background:var(--card);border:1px solid var(--line);margin-bottom:10px}
+.warr summary{cursor:pointer;padding:18px 22px;font-family:var(--display);font-weight:500;font-size:19px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.warr summary::-webkit-details-marker{display:none}
+.warr summary::after{content:"+";color:var(--accent-t);font-size:24px;line-height:1}
+.warr details[open] summary::after{content:"–"}
+.warr .body{padding:0 22px 20px}
+.warr .body p{margin-bottom:12px;color:var(--muted)}
+.warr .body ul{margin:0 0 12px 20px;color:var(--muted)}
+.warr .body li{margin-bottom:6px}
+.warr .note{border-left:3px solid var(--accent);padding:10px 16px;background:var(--sand);margin-top:8px;color:var(--text)}
+.warr mark{background:rgba(154,209,174,.14);color:var(--accent-t);padding:0 4px;font-weight:600}
+
+footer{background:#0C130F;color:#C9D3CB;padding:56px 0 28px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:32px}
+footer h4{color:#fff;margin-bottom:12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+footer .brand{font-family:var(--display);font-size:24px;color:#fff;margin-bottom:10px}
+footer a{display:block;margin:6px 0}footer a:hover{color:#fff}
+footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color:#8FA095}
+
+.fab{display:none}
+@media(max-width:1180px){
+  header .wrap{flex-wrap:wrap;gap:12px 20px;padding-block:12px}
+  .logo{flex:1}
+  nav{order:3;flex:0 0 100%;overflow-x:auto;gap:24px;padding-bottom:2px;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+}
+@media(max-width:1020px){
+  .hero .wrap{grid-template-columns:1fr;gap:0}
+  .hero .txt{padding-block:48px}
+  .hero .pic{min-height:320px;order:-1}
+  .hero h1{font-size:42px}
+  .facts .wrap{grid-template-columns:1fr 1fr}
+  .fact:nth-child(3){padding-left:0;border-left:0}
+  .fact{border-top:1px solid var(--line)}.fact:nth-child(-n+2){border-top:0}
+  .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
+  .t-k{grid-column:span 2;grid-row:span 1}.t-kids{grid-column:span 2}
+  .grid4{grid-template-columns:repeat(2,1fr);gap:20px}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{padding:24px 20px 24px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+  .step+.step{padding-left:0;border-left:0}.step:nth-child(even){padding-left:20px;border-left:1px solid rgba(255,255,255,.25)}
+  .about .wrap,.cta .wrap{grid-template-columns:1fr;gap:32px}
+  footer .cols{grid-template-columns:1fr 1fr}
+  section{padding:56px 0}h2{font-size:30px}
+  .fab{display:flex;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:58px;height:58px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(20,40,30,.35)}
+  footer{padding-bottom:96px}
+}
+@media(max-width:560px){
+  .grid4{gap:14px}.prod h3{font-size:18px}.prod .btn{width:100%;text-align:center}
+  .hero h1{font-size:36px}.hero .btn{width:100%;text-align:center}
+  .steps{grid-template-columns:1fr}.step:nth-child(even){padding-left:0;border-left:0}
+  .tile span{font-size:17px}.t-k span{font-size:22px}
+  footer .cols{grid-template-columns:1fr}
+  .logo{font-size:22px}
+  header .btn{padding:10px 16px}
+}
+@media(max-width:480px){header .btn{display:none}.top .wrap{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <span data-t="top">Київ, вул. Кирилівська, 102 · Працюємо 24/7 · +38 (099) 454-08-03</span>
+  <span class="lang"><button class="on" data-l="uk">UA</button><button data-l="ru">RU</button></span>
+</div></div>
+
+<header><div class="wrap">
+  <a class="logo" href="#">Меблі для дому</a>
+  <nav>
+    <a href="#cats" data-t="n1">Каталог</a>
+    <a href="#how" data-t="n2">Під замовлення</a>
+    <a href="#about" data-t="n3">Про майстерню</a>
+    <a href="#terms" data-t="n4">Доставка і оплата</a>
+    <a href="#warranty" data-t="n5">Гарантія</a>
+    <a href="#terms" data-t="n6">Умови продажу</a>
+    <a href="#contact" data-t="n7">Контакти</a>
+  </nav>
+  <a class="btn" href="tel:+380994540803" data-t="callbtn">Зателефонувати</a>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="txt">
+    <div class="eyebrow" data-t="eyebrow">Власна майстерня · Київ</div>
+    <h1 data-t="h1">Меблі, зроблені під ваш дім</h1>
+    <p data-t="h1p">Кухні, шафи, спальні та вітальні за вашими розмірами. Власне виробництво, гарантія 1 рік, доставка по Києву після оплати.</p>
+    <div class="btns"><a class="btn" href="#cats" data-t="b1">Дивитись каталог</a><a class="btn line" href="#contact" data-t="b2">Розрахувати за розмірами</a></div>
+  </div>
+  <div class="pic"><img src="images/hero.jpg" alt="Світла вітальня з дерев’яними меблями"></div>
+</div></div>
+
+<div class="facts"><div class="wrap">
+  <div class="fact"><h3 data-t="f1h">Працюємо 24/7</h3><p data-t="f1p">Приймаємо заявки та дзвінки цілодобово, без вихідних.</p></div>
+  <div class="fact"><h3 data-t="f2h">Майстерня в Києві</h3><p data-t="f2p">Виробляємо меблі самі й контролюємо якість на кожному етапі.</p></div>
+  <div class="fact"><h3 data-t="f3h">Доставка по Києву</h3><p data-t="f3p">Привозимо замовлення по Києву після оплати товару.</p></div>
+  <div class="fact"><h3 data-t="f4h">Гарантія 1 рік</h3><p data-t="f4p">На всі вироби, з дня отримання товару.</p></div>
+</div></div>
+
+<section id="cats"><div class="wrap">
+  <div class="eyebrow" data-t="e1">Каталог</div>
+  <h2 data-t="h2c">Меблі для кожної кімнати</h2>
+  <p class="sub" data-t="subc">Виготовляємо під ваші розміри. Оберіть напрям, і ми порахуємо вартість.</p>
+  <div class="mosaic">
+    <a class="tile t-k" href="#contact"><img src="images/cat-kitchen.jpg" alt="Кухня" loading="lazy"><span data-t="c1">Кухні</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-wardrobe.jpg" alt="Шафа" loading="lazy"><span data-t="c2">Шафи та шафи-купе</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-hallway.jpg" alt="Передпокій" loading="lazy"><span data-t="c3">Передпокої</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-living.jpg" alt="Вітальня" loading="lazy"><span data-t="c4">Вітальні</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-bedroom.jpg" alt="Спальня" loading="lazy"><span data-t="c5">Спальні та ліжка</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-dresser.jpg" alt="Комод" loading="lazy"><span data-t="c6">Комоди та тумби</span></a>
+    <a class="tile" href="#contact"><img src="images/cat-dining.jpg" alt="Обідній стіл" loading="lazy"><span data-t="c7">Столи та стільці</span></a>
+    <a class="tile t-kids" href="#contact"><img src="images/cat-kids.jpg" alt="Дитяча кімната" loading="lazy"><span data-t="c8">Дитячі меблі</span></a>
+  </div>
+</div></section>
+
+<section class="prods"><div class="wrap">
+  <div class="eyebrow" data-t="e2">Приклади робіт</div>
+  <h2 data-t="h2p">Популярні моделі</h2>
+  <p class="sub" data-t="subp">Приклади позицій. Остаточну ціну розрахуємо за вашими розмірами та матеріалами.</p>
+  <div class="grid4">
+    <article class="prod"><img src="images/prod-dresser.jpg" alt="Комод" loading="lazy"><div class="tag" data-t="hit">Хіт</div><h3 data-t="p1">Комод «Затишок»</h3><div class="spec" data-t="sp1">МДФ · 900 × 850 × 420 мм</div><div class="price"><span data-t="from">від</span> 8 900 ₴</div><a class="btn line" href="#contact" data-t="ord">Замовити</a></article>
+    <article class="prod"><img src="images/prod-bed.jpg" alt="Ліжко" loading="lazy"><div class="tag" data-t="new">Новинка</div><h3 data-t="p2">Ліжко «Дуб»</h3><div class="spec" data-t="sp2">Масив дуба · 160 × 200 см</div><div class="price"><span data-t="from">від</span> 14 500 ₴</div><a class="btn line" href="#contact" data-t="ord">Замовити</a></article>
+    <article class="prod"><img src="images/prod-wardrobe.jpg" alt="Шафа-купе" loading="lazy"><div class="tag" data-t="hit">Хіт</div><h3 data-t="p3">Шафа-купе «Класик»</h3><div class="spec" data-t="sp3">ЛДСП · 2400 × 2200 мм</div><div class="price"><span data-t="from">від</span> 19 800 ₴</div><a class="btn line" href="#contact" data-t="ord">Замовити</a></article>
+    <article class="prod"><img src="images/prod-table.jpg" alt="Обідній стіл" loading="lazy"><div class="tag" data-t="new">Новинка</div><h3 data-t="p4">Стіл обідній «Родина»</h3><div class="spec" data-t="sp4">Масив ясена · 160 × 90 см</div><div class="price"><span data-t="from">від</span> 11 200 ₴</div><a class="btn line" href="#contact" data-t="ord">Замовити</a></article>
+  </div>
+</div></section>
+
+<section class="how" id="how"><div class="wrap">
+  <div class="eyebrow" data-t="e3">Під замовлення</div>
+  <h2 data-t="h2s">Від заявки до збирання</h2>
+  <div class="steps">
+    <div class="step"><b>1</b><h3 data-t="s1">Заявка і замір</h3><p data-t="s1p">Залишаєте заявку, майстер приїжджає на замір безкоштовно.</p></div>
+    <div class="step"><b>2</b><h3 data-t="s2">Проєкт і ціна</h3><p data-t="s2p">Робимо ескіз і фіксуємо вартість у договорі.</p></div>
+    <div class="step"><b>3</b><h3 data-t="s3">Виготовлення</h3><p data-t="s3p">Виробляємо у власній майстерні й показуємо процес на фото.</p></div>
+    <div class="step"><b>4</b><h3 data-t="s4">Доставка і збирання</h3><p data-t="s4p">Привозимо, збираємо та даємо гарантію на виріб.</p></div>
+  </div>
+</div></section>
+
+<section class="about" id="about"><div class="wrap">
+  <div>
+    <div class="eyebrow" data-t="e4">Про майстерню</div>
+    <h2 data-t="h2a">Робимо меблі самі, від ескізу до збирання</h2>
+    <p data-t="ap">Наша майстерня працює в Києві на Кирилівській, 102. Ми виготовляємо корпусні меблі з ЛДСП, МДФ та масиву, підбираємо розміри під ваше приміщення й відповідаємо за результат.</p>
+    <ul>
+      <li data-t="al1">Розміри та кольори під ваш інтер’єр</li>
+      <li data-t="al2">Безкоштовний замір у Києві</li>
+      <li data-t="al3">Гарантія 1 рік на всі вироби</li>
+    </ul>
+    <a class="btn" href="#contact" data-t="b2">Розрахувати за розмірами</a>
+  </div>
+  <img src="images/work-3.jpg" alt="Інтер’єр із меблями" loading="lazy">
+</div></section>
+
+<section class="cta" id="contact"><div class="wrap">
+  <div><h2 data-t="h2f">Розрахуємо вартість ваших меблів безкоштовно</h2><p data-t="fp">Залиште номер: передзвонимо протягом години, цілодобово.</p></div>
+  <form onsubmit="return false"><input id="f-name" placeholder="Ім’я" data-p="ph_name" autocomplete="name"><input id="f-tel" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel"><button class="btn" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p></form>
+</div></section>
+
+<div class="legal-head"><div class="wrap"><div class="eyebrow" data-t="e5">Інформація для покупців</div></div></div>
+<section id="terms"><div class="wrap warr">
+  <h2>Умови продажу</h2>
+  <p class="lead">Продавець: <mark>[назва ФОП або ТОВ]</mark>, код <mark>[ЄДРПОУ або РНОКПП]</mark>, м. Київ, вул. Кирилівська, 102, тел. +38 (099) 454-08-03. Ці умови є публічною офертою для інтернет-магазину «Меблі для дому».</p>
+
+  <details><summary>Правова основа</summary><div class="body">
+    <p>У роботі ми керуємося:</p>
+    <ul>
+      <li>Цивільним кодексом України;</li>
+      <li>Законом України «Про електронні документи та електронний документообіг» від 22.05.2003 № 851-IV;</li>
+      <li>Законом України «Про захист прав споживачів» від 12.05.1991 № 1023-XII;</li>
+      <li>наказом Міністерства економіки України «Про затвердження Правил продажу товарів під замовлення і поза торговими чи офісними приміщеннями» від 19.04.2007 № 103;</li>
+      <li>постановами Кабінету Міністрів України від 15.06.2006 № 833 та від 19.03.1994 № 172.</li>
+    </ul>
+    <p>Ця пропозиція містить усі суттєві умови договору, адресована широкому колу осіб і є публічною офертою. Згідно зі статтями 638–640 Цивільного кодексу України договір вважається укладеним після того, як особа, яка запропонувала його укласти, отримала відповідь про прийняття пропозиції. Фізична особа, яка оформляє замовлення на сайті «Меблі для дому» (далі: Сайт) і має необхідну дієздатність (далі: Покупець), укладає договір з Продавцем шляхом приєднання до умов цієї оферти.</p>
+  </div></details>
+
+  <details><summary>Оформлення замовлення</summary><div class="body">
+    <p>Покупець оформлює замовлення самостійно на Сайті або за телефоном +38 (099) 454-08-03. Ми приймаємо дзвінки й заявки цілодобово. Після оформлення ми зв’яжемося з Покупцем, щоб уточнити деталі замовлення.</p>
+    <p>Для замовлення потрібно вказати ім’я, прізвище, телефон, адресу доставки та адресу електронної пошти (за наявності). Недостовірна інформація може стати підставою для відмови в поверненні коштів.</p>
+    <p>Після оформлення замовлення Покупець отримує інформацію про етапи його обробки та орієнтовний термін виготовлення і доставки. Остаточний термін залежить від складності виробу.</p>
+  </div></details>
+
+  <details><summary>Персональні дані</summary><div class="body">
+    <p>Вказуючи персональні дані, Покупець погоджується на їх використання, обробку та зберігання Продавцем. Ми використовуємо інформацію лише для виконання замовлення і не передаємо її третім особам, окрім тих, хто бере участь у виконанні наших зобов’язань перед Покупцем (наприклад, служби доставки), та випадків, передбачених законодавством України.</p>
+    <p>Покупець може змінити свою інформацію в будь-який час, зателефонувавши нам.</p>
+  </div></details>
+
+  <details><summary>Інформація про товар</summary><div class="body">
+    <p>Описи, фотографії та характеристики на Сайті мають довідковий характер. Колір і відтінок на екрані можуть відрізнятися від реальних. Усі меблі виготовляємо у власній майстерні, тому будь-які розміри, матеріали й кольори можна уточнити за телефоном перед замовленням. За інформацію про наші товари на сторонніх ресурсах Продавець відповідальності не несе.</p>
+  </div></details>
+
+  <details><summary>Оплата, передплата і скасування</summary><div class="body">
+    <ul>
+      <li>Доставка по Києву здійснюється після оплати товару.</li>
+      <li>Продавець визначає суму передплати залежно від виду товару і способу доставки.</li>
+      <li>Покупець може скасувати замовлення, зателефонувавши за номером +38 (099) 454-08-03. Внесена передплата при цьому не повертається.</li>
+      <li>Продавець може скасувати замовлення, якщо Покупець не вніс передплату протягом 3 робочих днів, або якщо Покупець відкладає отримання понад 30 днів (чи не забирає товар при самовивозі). Передплата в такому разі не повертається.</li>
+      <li>Якщо затримка виникла не з вини Покупця, термін виготовлення й доставки збільшується на кількість днів затримки. Про це ми повідомимо за телефоном або електронною поштою.</li>
+      <li>При безготівковому розрахунку, оплаті карткою чи через електронні системи моментом оплати вважається день зарахування коштів на рахунок Продавця. При оплаті готівкою це день передачі коштів Продавцю або його представнику.</li>
+    </ul>
+  </div></details>
+
+  <details><summary>Повернення товару</summary><div class="body">
+    <p>Після отримання й оплати товару належної якості його можна повернути протягом 14 календарних днів з дати продажу. Детальні умови дивіться в розділі <a href="#warranty" style="color:var(--gold);text-decoration:underline">«Гарантія та повернення»</a>.</p>
+  </div></details>
+</div></section>
+
+<section id="warranty"><div class="wrap warr">
+  <h2>Гарантія та повернення</h2>
+  <p class="lead">Усі меблі виготовлені у нашій майстерні в Києві, тож ми самі відповідаємо за їхню якість. Нижче описано, що перевірити під час отримання, на що поширюється гарантія і як повернути товар.</p>
+
+  <details open><summary>При отриманні товару</summary><div class="body">
+    <p>Перш ніж підписати накладну про прийняття доставки, виконайте кілька обов’язкових дій:</p>
+    <ul>
+      <li>Будьте присутні під час прийому товару особисто або передайте це право своєму представнику.</li>
+      <li>Огляньте зовнішній вигляд і цілісність упаковки.</li>
+      <li>Перевірте всі скляні елементи, включно з дзеркалами: чи немає сколів, тріщин, подряпин.</li>
+      <li>Огляньте фарбовані фасади на предмет сколів та інших пошкоджень.</li>
+      <li>Звірте комплектацію, колір, наповнення і кількість із бланком замовлення. Заміна таких деталей після прийняття меблів відбувається за рахунок замовника.</li>
+      <li>Для кухні перевірте стільниці та наявність окремої фурнітури: пристінних бортів із заглушками, плінтусів, мікроліфтів, штанг.</li>
+      <li>Збережіть усі документи, які надала вам наша майстерня.</li>
+    </ul>
+    <p>Підписуйте документи тільки після того, як переконалися в належній якості і стані виробів. Якщо є зауваження, зателефонуйте нам за номером +38 (099) 454-08-03: ми працюємо цілодобово і допоможемо вирішити ситуацію.</p>
+  </div></details>
+
+  <details><summary>Гарантійне обслуговування</summary><div class="body">
+    <p>На всі меблі діє гарантія від нашої майстерні терміном 1 (один) рік з дня отримання товару. За умови правильної експлуатації протягом гарантійного терміну ми безкоштовно усуваємо виробничі дефекти. Якщо дефект усунути неможливо, замінюємо браковану деталь.</p>
+    <p>Ми завжди йдемо назустріч покупцеві, але в гарантійному обслуговуванні можемо відмовити, якщо:</p>
+    <ul>
+      <li>закінчився гарантійний термін;</li>
+      <li>є випадкові пошкодження і дефекти, спричинені клієнтом або третіми особами;</li>
+      <li>виріб пошкоджено внаслідок стихійного лиха;</li>
+      <li>пошкодження виникли через недбале ставлення або використання: недотримання температурного режиму, надмірне навантаження, вплив рідини чи пилу, механічні пошкодження;</li>
+      <li>товар використовували з порушенням правил експлуатації саме цього виробу;</li>
+      <li>товар заносили, збирали або встановлювали самостійно чи сторонні особи, а не майстри нашої майстерні (крім випадків явного виробничого браку);</li>
+      <li>не збережено упаковку, бірки або наклейки.</li>
+    </ul>
+    <div class="note">Регулювання дверей шаф і кухонь та пересування стоперів у шафах-купе, що з’їхали, гарантією не є. Гарантія не поширюється на фурнітуру, окрім виробничого браку, виявленого під час отримання або збирання товару. Перед використанням меблів ознайомтеся з інструкцією з експлуатації.</div>
+    <p style="margin-top:12px">Підтвердженням гарантійних зобов’язань є гарантійний талон і накладна нашої майстерні.</p>
+  </div></details>
+
+  <details><summary>Позагарантійне обслуговування</summary><div class="body">
+    <p>Навіть якщо гарантія закінчилась або виріб пошкоджено з вини покупця, ми можемо за вашим проханням організувати ремонт меблів чи їхніх частин. Доставку виробу в обидва боки та вартість робіт у такому разі оплачує покупець.</p>
+  </div></details>
+
+  <details><summary>Повернення товару</summary><div class="body">
+    <p>Ми діємо відповідно до Закону України «Про захист прав споживачів» (стаття 9): ви можете обміняти чи повернути товар протягом 14 днів. Цей термін рахуємо не з дня замовлення й оплати, а з дня фактичного отримання товару. Для цього збережіть накладну, у якій вказана дата отримання.</p>
+    <p>Умови повернення:</p>
+    <ul>
+      <li>товар новий, не був у використанні й не має слідів використання: подряпин, сколів, потертостей, інших пошкоджень;</li>
+      <li>товар не збирали і не монтували, збережено його товарний вигляд;</li>
+      <li>збережено упаковку в цілісності разом з усіма її компонентами;</li>
+      <li>збережено комплектацію, ярлики, інструкції та заводське маркування;</li>
+      <li>є товарний чек або накладна, що підтверджують покупку в нашому магазині.</li>
+    </ul>
+    <p>Вартість транспортних послуг для повернення дорівнює вартості доставки й оплачується покупцем.</p>
+    <div class="note">Якщо меблі виготовлені за індивідуальним замовленням, зокрема за вашими розмірами чи в обраних вами матеріалах, вони входять до переліку товарів належної якості, що не підлягають обміну чи поверненню (додаток № 3 до постанови Кабінету Міністрів України від 19.03.1994 № 172).</div>
+  </div></details>
+</div></section>
+
+
+
+<section id="privacy"><div class="wrap warr">
+  <h2>Політика конфіденційності</h2>
+  <p class="lead">Ця політика пояснює, які персональні дані ми збираємо на сайті «Меблі для дому», навіщо їх використовуємо і як ви можете ними керувати. Володілець даних: <mark>[назва ФОП або ТОВ]</mark>, код <mark>[ЄДРПОУ або РНОКПП]</mark>, м. Київ, вул. Кирилівська, 102. Остання редакція: <mark>[дата]</mark>.</p>
+
+  <details><summary>Які дані ми збираємо</summary><div class="body">
+    <ul>
+      <li>ім’я та прізвище;</li>
+      <li>номер телефону;</li>
+      <li>адреса доставки та монтажу;</li>
+      <li>адреса електронної пошти (за наявності);</li>
+      <li>склад замовлення, розміри, побажання та коментарі, які ви повідомляєте нам у заявці чи під час дзвінка.</li>
+    </ul>
+    <p>Якщо ви оплачуєте карткою, платіж обробляє банк або платіжний сервіс. Ми не отримуємо і не зберігаємо повні дані вашої картки.</p>
+  </div></details>
+
+  <details><summary>Навіщо ми їх використовуємо</summary><div class="body">
+    <ul>
+      <li>щоб зв’язатися з вами й уточнити деталі замовлення;</li>
+      <li>щоб виконати замір, виготовити, доставити й зібрати меблі;</li>
+      <li>щоб надати гарантійне та післягарантійне обслуговування;</li>
+      <li>щоб виконати вимоги законодавства, зокрема щодо обліку й документів.</li>
+    </ul>
+    <p>Ми не надсилаємо рекламні повідомлення без вашої окремої згоди.</p>
+  </div></details>
+
+  <details><summary>Правові підстави</summary><div class="body">
+    <p>Ми обробляємо дані на підставі вашої згоди (ви надаєте її, залишаючи заявку чи оформлюючи замовлення), для виконання договору з вами та для виконання обов’язків, які покладає закон. Обробка здійснюється відповідно до Закону України «Про захист персональних даних» від 01.06.2010 № 2297-VI.</p>
+  </div></details>
+
+  <details><summary>Кому ми передаємо дані</summary><div class="body">
+    <p>Ми не продаємо ваші дані. Ми можемо передавати їх лише тим, хто бере участь у виконанні замовлення: службам доставки, банкам і платіжним сервісам, майстрам, які виконують замір чи збирання. Також ми можемо передати дані державним органам у випадках, передбачених законом.</p>
+  </div></details>
+
+  <details><summary>Скільки ми зберігаємо дані</summary><div class="body">
+    <p>Ми зберігаємо дані протягом виконання замовлення, гарантійного терміну (1 рік з дня отримання товару) та строків, яких вимагає законодавство для облікових документів. Після цього ми видаляємо дані або знеособлюємо їх.</p>
+  </div></details>
+
+  <details><summary>Ваші права</summary><div class="body">
+    <ul>
+      <li>дізнатися, які ваші дані ми обробляємо;</li>
+      <li>вимагати виправити неточні дані;</li>
+      <li>вимагати видалити дані або обмежити їх обробку;</li>
+      <li>відкликати згоду на обробку;</li>
+      <li>подати скаргу до Уповноваженого Верховної Ради України з прав людини.</li>
+    </ul>
+    <p>Щоб скористатися правами, зателефонуйте за номером +38 (099) 454-08-03 або напишіть на <mark>[електронна пошта]</mark>. Ми відповімо протягом розумного строку, який встановлює закон.</p>
+  </div></details>
+
+  <details><summary>Файли cookie, аналітика та безпека</summary><div class="body">
+    <p>Сайт використовує лише технічні дані, необхідні для його роботи. Якщо ми підключимо аналітику чи рекламні інструменти, ми вкажемо їх тут: <mark>[перелік сервісів, якщо використовуються]</mark>.</p>
+    <p>Ми вживаємо розумних організаційних і технічних заходів, щоб захистити дані від втрати та несанкціонованого доступу. Якщо ми змінимо цю політику, нову редакцію буде опубліковано на цій сторінці.</p>
+  </div></details>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div><div class="brand">Меблі для дому</div><p data-t="fabout">Меблі власного виробництва. Працюємо з натуральними матеріалами та беремо на себе доставку і збірку.</p></div>
+    <div><h4 data-t="fh1">Покупцям</h4><a href="#terms" data-t="n4">Доставка і оплата</a><a href="#warranty" data-t="n5">Гарантія</a><a href="#terms" data-t="n6">Умови продажу</a><a href="#privacy" data-t="n8">Політика конфіденційності</a></div>
+    <div><h4 data-t="fh2">Каталог</h4><a href="#cats" data-t="c1">Кухні</a><a href="#cats" data-t="c2">Шафи та шафи-купе</a><a href="#cats" data-t="c5">Спальні та ліжка</a></div>
+    <div><h4 data-t="n7">Контакти</h4><p>+38 (099) 454-08-03</p><p data-t="addr">м. Київ, вул. Кирилівська, 102</p></div>
+  </div>
+  <div class="copy">© 2026 Меблі для дому</div>
+</div></footer>
+
+<a class="fab" href="tel:+380994540803" aria-label="Зателефонувати +38 (099) 454-08-03"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></a>
+
+<script>
+const UKSEC={};
+const RUSEC={
+warranty:`<h2>Гарантия и возврат</h2>
+  <p class="lead">Вся мебель изготовлена в нашей мастерской в Киеве, поэтому мы сами отвечаем за её качество. Ниже описано, что проверить при получении, на что распространяется гарантия и как вернуть товар.</p>
+  <details open><summary>При получении товара</summary><div class="body">
+    <p>Прежде чем подписать накладную о принятии доставки, выполните несколько обязательных действий:</p>
+    <ul>
+      <li>Будьте лично при приёме товара или передайте это право своему представителю.</li>
+      <li>Осмотрите внешний вид и целостность упаковки.</li>
+      <li>Проверьте все стеклянные элементы, включая зеркала: нет ли сколов, трещин, царапин.</li>
+      <li>Осмотрите окрашенные фасады на предмет сколов и других повреждений.</li>
+      <li>Сверьте комплектацию, цвет, наполнение и количество с бланком заказа. Замена таких деталей после принятия мебели происходит за счёт заказчика.</li>
+      <li>Для кухни проверьте столешницы и наличие отдельной фурнитуры: пристенных бортов с заглушками, плинтусов, микролифтов, штанг.</li>
+      <li>Сохраните все документы, которые передала вам наша мастерская.</li>
+    </ul>
+    <p>Подписывайте документы только после того, как убедились в надлежащем качестве и состоянии изделий. Если есть замечания, позвоните нам по номеру +38 (099) 454-08-03: мы работаем круглосуточно и поможем решить ситуацию.</p>
+  </div></details>
+  <details><summary>Гарантийное обслуживание</summary><div class="body">
+    <p>На всю мебель действует гарантия от нашей мастерской сроком 1 (один) год со дня получения товара. При условии правильной эксплуатации в течение гарантийного срока мы бесплатно устраняем производственные дефекты. Если дефект устранить невозможно, заменяем бракованную деталь.</p>
+    <p>Мы всегда идём навстречу покупателю, но в гарантийном обслуживании можем отказать, если:</p>
+    <ul>
+      <li>закончился гарантийный срок;</li>
+      <li>есть случайные повреждения и дефекты, вызванные клиентом или третьими лицами;</li>
+      <li>изделие повреждено в результате стихийного бедствия;</li>
+      <li>повреждения возникли из-за небрежного отношения или использования: несоблюдение температурного режима, чрезмерная нагрузка, воздействие жидкости или пыли, механические повреждения;</li>
+      <li>товар использовали с нарушением правил эксплуатации именно этого изделия;</li>
+      <li>товар заносили, собирали или устанавливали самостоятельно либо посторонние лица, а не мастера нашей мастерской (кроме случаев явного производственного брака);</li>
+      <li>не сохранена упаковка, бирки или наклейки.</li>
+    </ul>
+    <div class="note">Регулировка дверей шкафов и кухонь и перемещение сместившихся стопперов в шкафах-купе гарантией не являются. Гарантия не распространяется на фурнитуру, кроме производственного брака, обнаруженного при получении или сборке товара. Перед использованием мебели ознакомьтесь с инструкцией по эксплуатации.</div>
+    <p style="margin-top:12px">Подтверждением гарантийных обязательств являются гарантийный талон и накладная нашей мастерской.</p>
+  </div></details>
+  <details><summary>Послегарантийное обслуживание</summary><div class="body">
+    <p>Даже если гарантия закончилась или изделие повреждено по вине покупателя, мы можем по вашей просьбе организовать ремонт мебели или её частей. Доставку изделия в обе стороны и стоимость работ в таком случае оплачивает покупатель.</p>
+  </div></details>
+  <details><summary>Возврат товара</summary><div class="body">
+    <p>Мы действуем в соответствии с Законом Украины «О защите прав потребителей» (статья 9): вы можете обменять или вернуть товар в течение 14 дней. Этот срок считаем не со дня заказа и оплаты, а со дня фактического получения товара. Для этого сохраните накладную, в которой указана дата получения.</p>
+    <p>Условия возврата:</p>
+    <ul>
+      <li>товар новый, не был в использовании и не имеет следов использования: царапин, сколов, потёртостей, других повреждений;</li>
+      <li>товар не собирали и не монтировали, сохранён его товарный вид;</li>
+      <li>сохранена упаковка в целостности вместе со всеми её компонентами;</li>
+      <li>сохранены комплектация, ярлыки, инструкции и заводская маркировка;</li>
+      <li>есть товарный чек или накладная, подтверждающие покупку в нашем магазине.</li>
+    </ul>
+    <p>Стоимость транспортных услуг для возврата равна стоимости доставки и оплачивается покупателем.</p>
+    <div class="note">Если мебель изготовлена по индивидуальному заказу, в том числе по вашим размерам или из выбранных вами материалов, она входит в перечень товаров надлежащего качества, не подлежащих обмену или возврату (приложение № 3 к постановлению Кабинета Министров Украины от 19.03.1994 № 172).</div>
+  </div></details>`,
+terms:`<h2>Условия продажи</h2>
+  <p class="lead">Продавец: <mark>[название ФЛП или ООО]</mark>, код <mark>[ЕГРПОУ или РНУКПН]</mark>, г. Киев, ул. Кирилловская, 102, тел. +38 (099) 454-08-03. Эти условия являются публичной офертой для интернет-магазина «Меблі для дому».</p>
+  <details><summary>Правовая основа</summary><div class="body">
+    <p>В работе мы руководствуемся:</p>
+    <ul>
+      <li>Гражданским кодексом Украины;</li>
+      <li>Законом Украины «Об электронных документах и электронном документообороте» от 22.05.2003 № 851-IV;</li>
+      <li>Законом Украины «О защите прав потребителей» от 12.05.1991 № 1023-XII;</li>
+      <li>приказом Министерства экономики Украины «Об утверждении Правил продажи товаров под заказ и вне торговых или офисных помещений» от 19.04.2007 № 103;</li>
+      <li>постановлениями Кабинета Министров Украины от 15.06.2006 № 833 и от 19.03.1994 № 172.</li>
+    </ul>
+    <p>Это предложение содержит все существенные условия договора, адресовано широкому кругу лиц и является публичной офертой. Согласно статьям 638–640 Гражданского кодекса Украины договор считается заключённым после того, как лицо, предложившее его заключить, получило ответ о принятии предложения. Физическое лицо, оформляющее заказ на сайте «Меблі для дому» (далее: Сайт) и обладающее необходимой дееспособностью (далее: Покупатель), заключает договор с Продавцом путём присоединения к условиям этой оферты.</p>
+  </div></details>
+  <details><summary>Оформление заказа</summary><div class="body">
+    <p>Покупатель оформляет заказ самостоятельно на Сайте или по телефону +38 (099) 454-08-03. Мы принимаем звонки и заявки круглосуточно. После оформления мы свяжемся с Покупателем, чтобы уточнить детали заказа.</p>
+    <p>Для заказа нужно указать имя, фамилию, телефон, адрес доставки и адрес электронной почты (при наличии). Недостоверная информация может стать основанием для отказа в возврате средств.</p>
+    <p>После оформления заказа Покупатель получает информацию об этапах его обработки и ориентировочный срок изготовления и доставки. Окончательный срок зависит от сложности изделия.</p>
+  </div></details>
+  <details><summary>Персональные данные</summary><div class="body">
+    <p>Указывая персональные данные, Покупатель соглашается на их использование, обработку и хранение Продавцом. Мы используем информацию только для выполнения заказа и не передаём её третьим лицам, кроме тех, кто участвует в исполнении наших обязательств перед Покупателем (например, службы доставки), и случаев, предусмотренных законодательством Украины.</p>
+    <p>Покупатель может изменить свою информацию в любое время, позвонив нам.</p>
+  </div></details>
+  <details><summary>Информация о товаре</summary><div class="body">
+    <p>Описания, фотографии и характеристики на Сайте носят справочный характер. Цвет и оттенок на экране могут отличаться от реальных. Всю мебель мы изготавливаем в собственной мастерской, поэтому любые размеры, материалы и цвета можно уточнить по телефону перед заказом. За информацию о наших товарах на сторонних ресурсах Продавец ответственности не несёт.</p>
+  </div></details>
+  <details><summary>Оплата, предоплата и отмена</summary><div class="body">
+    <ul>
+      <li>Доставка по Киеву осуществляется после оплаты товара.</li>
+      <li>Продавец определяет сумму предоплаты в зависимости от вида товара и способа доставки.</li>
+      <li>Покупатель может отменить заказ, позвонив по номеру +38 (099) 454-08-03. Внесённая предоплата при этом не возвращается.</li>
+      <li>Продавец может отменить заказ, если Покупатель не внёс предоплату в течение 3 рабочих дней или если Покупатель откладывает получение более 30 дней (либо не забирает товар при самовывозе). Предоплата в таком случае не возвращается.</li>
+      <li>Если задержка возникла не по вине Покупателя, срок изготовления и доставки увеличивается на количество дней задержки. Об этом мы сообщим по телефону или электронной почте.</li>
+      <li>При безналичном расчёте, оплате картой или через электронные системы моментом оплаты считается день зачисления средств на счёт Продавца. При оплате наличными это день передачи средств Продавцу или его представителю.</li>
+    </ul>
+  </div></details>
+  <details><summary>Возврат товара</summary><div class="body">
+    <p>После получения и оплаты товара надлежащего качества его можно вернуть в течение 14 календарных дней с даты продажи. Подробные условия смотрите в разделе <a href="#warranty" style="color:var(--gold);text-decoration:underline">«Гарантия и возврат»</a>.</p>
+  </div></details>`,
+privacy:`<h2>Политика конфиденциальности</h2>
+  <p class="lead">Эта политика объясняет, какие персональные данные мы собираем на сайте «Меблі для дому», зачем их используем и как вы можете ими управлять. Владелец данных: <mark>[название ФЛП или ООО]</mark>, код <mark>[ЕГРПОУ или РНУКПН]</mark>, г. Киев, ул. Кирилловская, 102. Последняя редакция: <mark>[дата]</mark>.</p>
+  <details><summary>Какие данные мы собираем</summary><div class="body">
+    <ul>
+      <li>имя и фамилия;</li>
+      <li>номер телефона;</li>
+      <li>адрес доставки и монтажа;</li>
+      <li>адрес электронной почты (при наличии);</li>
+      <li>состав заказа, размеры, пожелания и комментарии, которые вы сообщаете нам в заявке или во время звонка.</li>
+    </ul>
+    <p>Если вы оплачиваете картой, платёж обрабатывает банк или платёжный сервис. Мы не получаем и не храним полные данные вашей карты.</p>
+  </div></details>
+  <details><summary>Зачем мы их используем</summary><div class="body">
+    <ul>
+      <li>чтобы связаться с вами и уточнить детали заказа;</li>
+      <li>чтобы выполнить замер, изготовить, доставить и собрать мебель;</li>
+      <li>чтобы предоставить гарантийное и послегарантийное обслуживание;</li>
+      <li>чтобы выполнить требования законодательства, в частности по учёту и документам.</li>
+    </ul>
+    <p>Мы не отправляем рекламные сообщения без вашего отдельного согласия.</p>
+  </div></details>
+  <details><summary>Правовые основания</summary><div class="body">
+    <p>Мы обрабатываем данные на основании вашего согласия (вы даёте его, оставляя заявку или оформляя заказ), для выполнения договора с вами и для исполнения обязанностей, возложенных законом. Обработка осуществляется в соответствии с Законом Украины «О защите персональных данных» от 01.06.2010 № 2297-VI.</p>
+  </div></details>
+  <details><summary>Кому мы передаём данные</summary><div class="body">
+    <p>Мы не продаём ваши данные. Мы можем передавать их только тем, кто участвует в выполнении заказа: службам доставки, банкам и платёжным сервисам, мастерам, выполняющим замер или сборку. Также мы можем передать данные государственным органам в случаях, предусмотренных законом.</p>
+  </div></details>
+  <details><summary>Как долго мы храним данные</summary><div class="body">
+    <p>Мы храним данные в течение выполнения заказа, гарантийного срока (1 год со дня получения товара) и сроков, которых требует законодательство для учётных документов. После этого мы удаляем данные или обезличиваем их.</p>
+  </div></details>
+  <details><summary>Ваши права</summary><div class="body">
+    <ul>
+      <li>узнать, какие ваши данные мы обрабатываем;</li>
+      <li>потребовать исправить неточные данные;</li>
+      <li>потребовать удалить данные или ограничить их обработку;</li>
+      <li>отозвать согласие на обработку;</li>
+      <li>подать жалобу Уполномоченному Верховной Рады Украины по правам человека.</li>
+    </ul>
+    <p>Чтобы воспользоваться правами, позвоните по номеру +38 (099) 454-08-03 или напишите на <mark>[электронная почта]</mark>. Мы ответим в разумный срок, который устанавливает закон.</p>
+  </div></details>
+  <details><summary>Файлы cookie, аналитика и безопасность</summary><div class="body">
+    <p>Сайт использует только технические данные, необходимые для его работы. Если мы подключим аналитику или рекламные инструменты, мы укажем их здесь: <mark>[перечень сервисов, если используются]</mark>.</p>
+    <p>Мы принимаем разумные организационные и технические меры, чтобы защитить данные от потери и несанкционированного доступа. Если мы изменим эту политику, новая редакция будет опубликована на этой странице.</p>
+  </div></details>`
+};
+function swapSections(l){
+  Object.keys(RUSEC).forEach(function(id){
+    var el=document.querySelector('#'+id+' .warr'); if(!el) return;
+    if(!(id in UKSEC)) UKSEC[id]=el.innerHTML;
+    el.innerHTML = l==='ru' ? RUSEC[id] : UKSEC[id];
+  });
+}
+
+const RU={
+top:"Киев, ул. Кирилловская, 102 · Работаем 24/7 · +38 (099) 454-08-03",
+n1:"Каталог",n2:"Под заказ",n3:"О мастерской",n4:"Доставка и оплата",n5:"Гарантия",n6:"Условия продажи",n7:"Контакты",
+n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
+h1:"Мебель, сделанная под ваш дом",
+h1p:"Кухни, шкафы, спальни и гостиные по вашим размерам. Собственное производство, гарантия 1 год, доставка по Киеву после оплаты.",
+b1:"Смотреть каталог",b2:"Рассчитать по размерам",
+f1h:"Работаем 24/7",f1p:"Принимаем заявки и звонки круглосуточно, без выходных.",
+f2h:"Мастерская в Киеве",f2p:"Делаем мебель сами и контролируем качество на каждом этапе.",
+f3h:"Доставка по Киеву",f3p:"Привозим заказ по Киеву после оплаты товара.",
+f4h:"Гарантия 1 год",f4p:"На все изделия, со дня получения товара.",
+e1:"Каталог",h2c:"Мебель для каждой комнаты",subc:"Изготавливаем по вашим размерам. Выберите направление, и мы посчитаем стоимость.",
+c1:"Кухни",c2:"Шкафы и шкафы-купе",c3:"Прихожие",c4:"Гостиные",c5:"Спальни и кровати",c6:"Комоды и тумбы",c7:"Столы и стулья",c8:"Детская мебель",
+e2:"Примеры работ",h2p:"Популярные модели",subp:"Примеры позиций. Окончательную цену рассчитаем по вашим размерам и материалам.",
+hit:"Хит",new:"Новинка",from:"от",ord:"Заказать",
+p1:"Комод «Уют»",p2:"Кровать «Дуб»",p3:"Шкаф-купе «Классик»",p4:"Стол обеденный «Семья»",
+sp1:"МДФ · 900 × 850 × 420 мм",sp2:"Массив дуба · 160 × 200 см",sp3:"ЛДСП · 2400 × 2200 мм",sp4:"Массив ясеня · 160 × 90 см",
+e3:"Под заказ",h2s:"От заявки до сборки",
+s1:"Заявка и замер",s1p:"Оставляете заявку, мастер приезжает на замер бесплатно.",
+s2:"Проект и цена",s2p:"Делаем эскиз и фиксируем стоимость в договоре.",
+s3:"Изготовление",s3p:"Производим в собственной мастерской и показываем процесс на фото.",
+s4:"Доставка и сборка",s4p:"Привозим, собираем и даём гарантию на изделие.",
+e4:"О мастерской",h2a:"Делаем мебель сами, от эскиза до сборки",
+ap:"Наша мастерская работает в Киеве на Кирилловской, 102. Мы изготавливаем корпусную мебель из ЛДСП, МДФ и массива, подбираем размеры под ваше помещение и отвечаем за результат.",
+al1:"Размеры и цвета под ваш интерьер",al2:"Бесплатный замер в Киеве",al3:"Гарантия 1 год на все изделия",
+h2f:"Рассчитаем стоимость вашей мебели бесплатно",fp:"Оставьте номер: перезвоним в течение часа, круглосуточно.",send:"Отправить заявку",
+e5:"Информация для покупателей",
+fabout:"Мебель собственного производства. Работаем с натуральными материалами и берём на себя доставку и сборку.",
+fh1:"Покупателям",fh2:"Каталог",addr:"г. Киев, ул. Кирилловская, 102"};
+const UK={};
+document.querySelectorAll("[data-t]").forEach(e=>UK[e.dataset.t]=e.innerHTML);
+const PH={uk:{ph_name:"Ім’я",ph_tel:"Телефон"},ru:{ph_name:"Имя",ph_tel:"Телефон"}};
+function setLang(l){
+  swapSections(l);
+  document.documentElement.lang=l==="ru"?"ru":"uk";
+  document.querySelectorAll("[data-t]").forEach(e=>{const d=l==="ru"?RU:UK;if(d[e.dataset.t]!==undefined)e.innerHTML=d[e.dataset.t]});
+  document.querySelectorAll("[data-p]").forEach(e=>e.placeholder=PH[l][e.dataset.p]);
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+</script>
+</body>
+</html>
