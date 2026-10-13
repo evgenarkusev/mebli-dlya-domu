@@ -146,6 +146,27 @@ footer a{display:block;margin:6px 0}footer a:hover{color:#fff}
 footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color:#8FA095}
 
 .fab{display:none}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.pill{background:none;border:1px solid var(--line);color:var(--text);padding:8px 16px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border-radius:999px;transition:background .2s,border-color .2s}
+.pill:hover{border-color:var(--accent-t)}
+.pill.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.gallery{columns:4 230px;column-gap:14px}
+.g{display:block;width:100%;margin:0 0 14px;padding:0;border:0;background:var(--sand);position:relative;cursor:zoom-in;break-inside:avoid;overflow:hidden;color:#fff}
+.g[hidden]{display:none}
+.g img{width:100%;height:auto;filter:saturate(.82) sepia(.1) brightness(.9);transition:transform .5s}
+.g:hover img{transform:scale(1.04)}
+.g::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,18,14,.7),rgba(10,18,14,0) 45%);pointer-events:none}
+.g .cap{position:absolute;left:12px;bottom:10px;z-index:1;font-family:var(--display);font-size:16px;text-align:left}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(8,14,11,.94);display:flex;align-items:center;justify-content:center;padding:24px}
+.lb[hidden]{display:none}
+.lb figure{max-width:min(1000px,100%);margin:0;text-align:center}
+.lb img{max-width:100%;max-height:74vh;margin:0 auto;object-fit:contain}
+.lb figcaption{margin-top:16px;display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;color:#fff;font-family:var(--display);font-size:20px}
+.lb-x{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:38px;line-height:1;cursor:pointer;padding:4px 10px}
+.lb-n{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:0;color:#fff;font-size:34px;width:48px;height:60px;cursor:pointer}
+.lb-p{left:12px}.lb-nx{right:12px}
+.lb button:focus-visible{outline:2px solid var(--accent-t)}
+@media(max-width:560px){.gallery{columns:2 140px;column-gap:10px}.g{margin-bottom:10px}.g .cap{font-size:13px;left:8px;bottom:6px}.lb-n{width:40px;height:52px}.pill{padding:7px 12px;font-size:13px}}
 @media(max-width:1180px){
   header .wrap{flex-wrap:wrap;gap:12px 20px;padding-block:12px}
   .logo{flex:1}
@@ -228,16 +249,64 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   <h2 data-t="h2c">Меблі для кожної кімнати</h2>
   <p class="sub" data-t="subc">Виготовляємо під ваші розміри. Оберіть напрям, і ми порахуємо вартість.</p>
   <div class="mosaic">
-    <a class="tile t-k" href="#contact"><img src="images/cat-kitchen.jpg" alt="Кухня" loading="lazy"><span data-t="c1">Кухні</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-wardrobe.jpg" alt="Шафа" loading="lazy"><span data-t="c2">Шафи та шафи-купе</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-hallway.jpg" alt="Передпокій" loading="lazy"><span data-t="c3">Передпокої</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-living.jpg" alt="Вітальня" loading="lazy"><span data-t="c4">Вітальні</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-bedroom.jpg" alt="Спальня" loading="lazy"><span data-t="c5">Спальні та ліжка</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-dresser.jpg" alt="Комод" loading="lazy"><span data-t="c6">Комоди та тумби</span></a>
-    <a class="tile" href="#contact"><img src="images/cat-dining.jpg" alt="Обідній стіл" loading="lazy"><span data-t="c7">Столи та стільці</span></a>
-    <a class="tile t-kids" href="#contact"><img src="images/cat-kids.jpg" alt="Дитяча кімната" loading="lazy"><span data-t="c8">Дитячі меблі</span></a>
+    <a class="tile t-k" href="#models" data-f="kitchen"><img src="images/cat-kitchen.jpg" alt="Кухня" loading="lazy"><span data-t="c1">Кухні</span></a>
+    <a class="tile" href="#models" data-f="wardrobe"><img src="images/cat-wardrobe.jpg" alt="Шафа" loading="lazy"><span data-t="c2">Шафи та шафи-купе</span></a>
+    <a class="tile" href="#models" data-f="hallway"><img src="images/cat-hallway.jpg" alt="Передпокій" loading="lazy"><span data-t="c3">Передпокої</span></a>
+    <a class="tile" href="#models" data-f="living"><img src="images/cat-living.jpg" alt="Вітальня" loading="lazy"><span data-t="c4">Вітальні</span></a>
+    <a class="tile" href="#models" data-f="bedroom"><img src="images/cat-bedroom.jpg" alt="Спальня" loading="lazy"><span data-t="c5">Спальні та ліжка</span></a>
+    <a class="tile" href="#models" data-f="dresser"><img src="images/cat-dresser.jpg" alt="Комод" loading="lazy"><span data-t="c6">Комоди та тумби</span></a>
+    <a class="tile" href="#models" data-f="dining"><img src="images/cat-dining.jpg" alt="Обідній стіл" loading="lazy"><span data-t="c7">Столи та стільці</span></a>
+    <a class="tile t-kids" href="#models" data-f="kids"><img src="images/cat-kids.jpg" alt="Дитяча кімната" loading="lazy"><span data-t="c8">Дитячі меблі</span></a>
   </div>
 </div></section>
+
+<section id="models"><div class="wrap">
+  <div class="eyebrow" data-t="e6">Каталог зразків</div>
+  <h2 data-t="h2m">Оберіть модель</h2>
+  <p class="sub" data-t="subm">Натисніть на фото, щоб роздивитися. Це зразки стилів і форм: виготовимо схожу модель за вашими розмірами та матеріалами.</p>
+  <div class="filters" role="group" aria-label="Фільтр за категорією"><button type="button" class="pill on" data-f="all" data-t="all">Усі</button><button type="button" class="pill" data-f="kitchen" data-t="c1">Кухні</button><button type="button" class="pill" data-f="wardrobe" data-t="c2">Шафи та шафи-купе</button><button type="button" class="pill" data-f="hallway" data-t="c3">Передпокої</button><button type="button" class="pill" data-f="living" data-t="c4">Вітальні</button><button type="button" class="pill" data-f="bedroom" data-t="c5">Спальні та ліжка</button><button type="button" class="pill" data-f="dresser" data-t="c6">Комоди та тумби</button><button type="button" class="pill" data-f="dining" data-t="c7">Столи та стільці</button><button type="button" class="pill" data-f="kids" data-t="c8">Дитячі меблі</button></div>
+  <div class="gallery">
+    <button type="button" class="g" data-cat="kitchen"><img src="images/cat-kitchen.jpg" alt="Кухня, зразок 1" loading="lazy"><span class="cap"><span data-t="c1">Кухні</span> №1</span></button>
+    <button type="button" class="g" data-cat="wardrobe"><img src="images/cat-wardrobe.jpg" alt="Шафа, зразок 1" loading="lazy"><span class="cap"><span data-t="c2">Шафи та шафи-купе</span> №1</span></button>
+    <button type="button" class="g" data-cat="hallway"><img src="images/cat-hallway.jpg" alt="Передпокій, зразок 1" loading="lazy"><span class="cap"><span data-t="c3">Передпокої</span> №1</span></button>
+    <button type="button" class="g" data-cat="living"><img src="images/cat-living.jpg" alt="Вітальня, зразок 1" loading="lazy"><span class="cap"><span data-t="c4">Вітальні</span> №1</span></button>
+    <button type="button" class="g" data-cat="bedroom"><img src="images/cat-bedroom.jpg" alt="Спальня, зразок 1" loading="lazy"><span class="cap"><span data-t="c5">Спальні та ліжка</span> №1</span></button>
+    <button type="button" class="g" data-cat="dresser"><img src="images/cat-dresser.jpg" alt="Комод, зразок 1" loading="lazy"><span class="cap"><span data-t="c6">Комоди та тумби</span> №1</span></button>
+    <button type="button" class="g" data-cat="dining"><img src="images/cat-dining.jpg" alt="Стіл, зразок 1" loading="lazy"><span class="cap"><span data-t="c7">Столи та стільці</span> №1</span></button>
+    <button type="button" class="g" data-cat="kids"><img src="images/cat-kids.jpg" alt="Дитяча, зразок 1" loading="lazy"><span class="cap"><span data-t="c8">Дитячі меблі</span> №1</span></button>
+    <button type="button" class="g" data-cat="kitchen"><img src="images/catalog/kitchen-1.jpg" alt="Кухня, зразок 2" loading="lazy"><span class="cap"><span data-t="c1">Кухні</span> №2</span></button>
+    <button type="button" class="g" data-cat="wardrobe"><img src="images/prod-wardrobe.jpg" alt="Шафа, зразок 2" loading="lazy"><span class="cap"><span data-t="c2">Шафи та шафи-купе</span> №2</span></button>
+    <button type="button" class="g" data-cat="hallway"><img src="images/catalog/hallway-1.jpg" alt="Передпокій, зразок 2" loading="lazy"><span class="cap"><span data-t="c3">Передпокої</span> №2</span></button>
+    <button type="button" class="g" data-cat="living"><img src="images/catalog/living-1.jpg" alt="Вітальня, зразок 2" loading="lazy"><span class="cap"><span data-t="c4">Вітальні</span> №2</span></button>
+    <button type="button" class="g" data-cat="bedroom"><img src="images/prod-bed.jpg" alt="Спальня, зразок 2" loading="lazy"><span class="cap"><span data-t="c5">Спальні та ліжка</span> №2</span></button>
+    <button type="button" class="g" data-cat="dresser"><img src="images/prod-dresser.jpg" alt="Комод, зразок 2" loading="lazy"><span class="cap"><span data-t="c6">Комоди та тумби</span> №2</span></button>
+    <button type="button" class="g" data-cat="dining"><img src="images/prod-table.jpg" alt="Стіл, зразок 2" loading="lazy"><span class="cap"><span data-t="c7">Столи та стільці</span> №2</span></button>
+    <button type="button" class="g" data-cat="kids"><img src="images/catalog/kids-1.jpg" alt="Дитяча, зразок 2" loading="lazy"><span class="cap"><span data-t="c8">Дитячі меблі</span> №2</span></button>
+    <button type="button" class="g" data-cat="kitchen"><img src="images/catalog/kitchen-2.jpg" alt="Кухня, зразок 3" loading="lazy"><span class="cap"><span data-t="c1">Кухні</span> №3</span></button>
+    <button type="button" class="g" data-cat="wardrobe"><img src="images/catalog/wardrobe-1.jpg" alt="Шафа, зразок 3" loading="lazy"><span class="cap"><span data-t="c2">Шафи та шафи-купе</span> №3</span></button>
+    <button type="button" class="g" data-cat="hallway"><img src="images/catalog/hallway-2.jpg" alt="Передпокій, зразок 3" loading="lazy"><span class="cap"><span data-t="c3">Передпокої</span> №3</span></button>
+    <button type="button" class="g" data-cat="living"><img src="images/catalog/living-2.jpg" alt="Вітальня, зразок 3" loading="lazy"><span class="cap"><span data-t="c4">Вітальні</span> №3</span></button>
+    <button type="button" class="g" data-cat="bedroom"><img src="images/catalog/bedroom-1.jpg" alt="Спальня, зразок 3" loading="lazy"><span class="cap"><span data-t="c5">Спальні та ліжка</span> №3</span></button>
+    <button type="button" class="g" data-cat="dresser"><img src="images/catalog/dresser-1.jpg" alt="Комод, зразок 3" loading="lazy"><span class="cap"><span data-t="c6">Комоди та тумби</span> №3</span></button>
+    <button type="button" class="g" data-cat="dining"><img src="images/catalog/dining-1.jpg" alt="Стіл, зразок 3" loading="lazy"><span class="cap"><span data-t="c7">Столи та стільці</span> №3</span></button>
+    <button type="button" class="g" data-cat="kitchen"><img src="images/catalog/kitchen-3.jpg" alt="Кухня, зразок 4" loading="lazy"><span class="cap"><span data-t="c1">Кухні</span> №4</span></button>
+    <button type="button" class="g" data-cat="wardrobe"><img src="images/catalog/wardrobe-2.jpg" alt="Шафа, зразок 4" loading="lazy"><span class="cap"><span data-t="c2">Шафи та шафи-купе</span> №4</span></button>
+    <button type="button" class="g" data-cat="living"><img src="images/catalog/living-3.jpg" alt="Вітальня, зразок 4" loading="lazy"><span class="cap"><span data-t="c4">Вітальні</span> №4</span></button>
+    <button type="button" class="g" data-cat="bedroom"><img src="images/catalog/bedroom-2.jpg" alt="Спальня, зразок 4" loading="lazy"><span class="cap"><span data-t="c5">Спальні та ліжка</span> №4</span></button>
+    <button type="button" class="g" data-cat="dining"><img src="images/catalog/dining-2.jpg" alt="Стіл, зразок 4" loading="lazy"><span class="cap"><span data-t="c7">Столи та стільці</span> №4</span></button>
+    <button type="button" class="g" data-cat="kitchen"><img src="images/catalog/kitchen-4.jpg" alt="Кухня, зразок 5" loading="lazy"><span class="cap"><span data-t="c1">Кухні</span> №5</span></button>
+    <button type="button" class="g" data-cat="wardrobe"><img src="images/catalog/wardrobe-3.jpg" alt="Шафа, зразок 5" loading="lazy"><span class="cap"><span data-t="c2">Шафи та шафи-купе</span> №5</span></button>
+    <button type="button" class="g" data-cat="living"><img src="images/catalog/living-4.jpg" alt="Вітальня, зразок 5" loading="lazy"><span class="cap"><span data-t="c4">Вітальні</span> №5</span></button>
+    <button type="button" class="g" data-cat="dining"><img src="images/catalog/dining-3.jpg" alt="Стіл, зразок 5" loading="lazy"><span class="cap"><span data-t="c7">Столи та стільці</span> №5</span></button>
+  </div>
+</div></section>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Перегляд фото">
+  <button type="button" class="lb-x" id="lb-x" aria-label="Закрити">&times;</button>
+  <button type="button" class="lb-n lb-p" id="lb-p" aria-label="Попереднє">&#8249;</button>
+  <figure><img id="lb-img" alt=""><figcaption><span id="lb-cap"></span> <a class="btn" href="#contact" id="lb-go" data-t="lbbtn">Замовити схоже</a></figcaption></figure>
+  <button type="button" class="lb-n lb-nx" id="lb-nx" aria-label="Наступне">&#8250;</button>
+</div>
 
 <section class="prods"><div class="wrap">
   <div class="eyebrow" data-t="e2">Приклади робіт</div>
@@ -657,7 +726,7 @@ function swapSections(l){
 const RU={
 top:"Киев, ул. Кирилловская, 102 · Работаем 24/7 · +38 (099) 454-08-03",
 n1:"Каталог",n2:"Под заказ",n3:"О мастерской",n4:"Доставка и оплата",n5:"Гарантия",n6:"Условия продажи",n7:"Контакты",
-n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
+n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",all:"Все",e6:"Каталог образцов",h2m:"Выберите модель",subm:"Нажмите на фото, чтобы рассмотреть. Это образцы стилей и форм: изготовим похожую модель по вашим размерам и материалам.",lbbtn:"Заказать похожее",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
 h1:"Мебель, сделанная под ваш дом",
 h1p:"Кухни, шкафы, спальни и гостиные по вашим размерам. Собственное производство, гарантия 1 год, доставка по Киеву после оплаты.",
 b1:"Смотреть каталог",b2:"Рассчитать по размерам",
@@ -694,6 +763,39 @@ function setLang(l){
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
 }
 document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+</script>
+<script>
+(function(){
+  var items=[].slice.call(document.querySelectorAll(".gallery .g"));
+  var pills=[].slice.call(document.querySelectorAll(".pill"));
+  var lb=document.getElementById("lb"),img=document.getElementById("lb-img"),cap=document.getElementById("lb-cap");
+  var cur=-1,lastFocus=null;
+  function visible(){return items.filter(function(g){return !g.hidden})}
+  function setFilter(f){
+    pills.forEach(function(p){p.classList.toggle("on",p.dataset.f===f)});
+    items.forEach(function(g){g.hidden=!(f==="all"||g.dataset.cat===f)});
+  }
+  pills.forEach(function(p){p.onclick=function(){setFilter(p.dataset.f)}});
+  [].forEach.call(document.querySelectorAll(".tile[data-f]"),function(t){t.addEventListener("click",function(){setFilter(t.dataset.f)})});
+  function show(i){
+    var v=visible(); if(!v.length) return;
+    cur=(i+v.length)%v.length;
+    var g=v[cur]; img.src=g.querySelector("img").src; img.alt=g.querySelector("img").alt;
+    cap.textContent=g.querySelector(".cap").textContent;
+  }
+  function open(g){lastFocus=document.activeElement;lb.hidden=false;document.body.style.overflow="hidden";show(visible().indexOf(g));document.getElementById("lb-x").focus()}
+  function close(){lb.hidden=true;document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  items.forEach(function(g){g.onclick=function(){open(g)}});
+  document.getElementById("lb-x").onclick=close;
+  document.getElementById("lb-p").onclick=function(){show(cur-1)};
+  document.getElementById("lb-nx").onclick=function(){show(cur+1)};
+  document.getElementById("lb-go").onclick=close;
+  lb.addEventListener("click",function(e){if(e.target===lb)close()});
+  document.addEventListener("keydown",function(e){
+    if(lb.hidden) return;
+    if(e.key==="Escape")close(); else if(e.key==="ArrowLeft")show(cur-1); else if(e.key==="ArrowRight")show(cur+1);
+  });
+})();
 </script>
 </body>
 </html>
