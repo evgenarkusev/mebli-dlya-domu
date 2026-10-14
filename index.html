@@ -155,6 +155,12 @@ nav a:hover{color:var(--accent-t)}
 .cta form{display:grid;gap:12px}
 .cta input{padding:15px 16px;border:1px solid var(--line);background:var(--card);font:inherit;border-radius:2px;color:var(--text)}
 .cta .btn{padding:16px}
+.contacts{list-style:none;margin-top:26px;display:grid;gap:18px}
+.contacts li{display:grid;gap:2px}
+.contacts b{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-t)}
+.contacts a{color:var(--text);text-decoration:underline;text-underline-offset:3px}
+.contacts a:hover{color:var(--accent-t)}
+.contacts .big{font-family:var(--display);font-size:26px;text-decoration:none}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .form-status{font-size:14px;line-height:1.5;padding:10px 14px;border-left:3px solid var(--accent-t);background:var(--card);color:var(--text)}
 .form-status.err{border-left-color:#E0705F}
@@ -214,6 +220,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   .logo{flex:1}
   nav{order:3;flex:0 0 100%;overflow-x:auto;gap:24px;padding-bottom:2px;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
+  nav a[href="#contact"]{order:-1;font-weight:700;color:var(--accent-t)}
 }
 @media(max-width:1020px){
   .hero .wrap{grid-template-columns:1fr;gap:0}
@@ -389,7 +396,8 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
 </div></section>
 
 <section class="cta" id="contact"><div class="wrap">
-  <div><h2 data-t="h2f">Розрахуємо вартість ваших меблів безкоштовно</h2><p data-t="fp">Залиште номер: передзвонимо протягом години, цілодобово.</p></div>
+  <div><div class="eyebrow" data-t="n7">Контакти</div><h2 data-t="h2f">Розрахуємо вартість ваших меблів безкоштовно</h2><p data-t="fp">Залиште номер: передзвонимо протягом години, цілодобово.</p>
+    <ul class="contacts"><li><b data-t="ct1">Телефон</b><a class="big" href="tel:+380994540803">+38 (099) 454-08-03</a></li><li><b data-t="ct2">Адреса майстерні</b><span data-t="addr2">м. Київ, вул. Кирилівська, 102</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%9A%D0%B8%D1%97%D0%B2%2C+%D0%B2%D1%83%D0%BB.+%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0%2C+102" target="_blank" rel="noopener" data-t="map">Відкрити на карті</a></li><li><b data-t="ct3">Графік</b><span data-t="hours">Щодня, цілодобово</span></li></ul></div>
   <form id="lead" novalidate><label class="sr" for="f-name" data-t="lbl_name">Ім’я</label><input id="f-name" name="name" placeholder="Ім’я" data-p="ph_name" autocomplete="name" required><label class="sr" for="f-tel" data-t="lbl_tel">Телефон</label><input id="f-tel" name="phone" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel" required><button class="btn" type="submit" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p><p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p></form>
 </div></section>
 
@@ -768,7 +776,7 @@ function swapSections(l){
 const RU={
 top:"Киев, ул. Кирилловская, 102 · Работаем 24/7 · +38 (099) 454-08-03",
 n1:"Каталог",n2:"Под заказ",n3:"О мастерской",n4:"Доставка и оплата",n5:"Гарантия",n6:"Условия продажи",n7:"Контакты",
-n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",all:"Все",e6:"Каталог образцов",h2m:"Выберите модель",subm:"Нажмите на фото, чтобы рассмотреть. Это образцы стилей и форм: изготовим похожую модель по вашим размерам и материалам.",lbbtn:"Заказать похожее",lbl_name:"Имя",lbl_tel:"Телефон",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
+n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",all:"Все",e6:"Каталог образцов",h2m:"Выберите модель",subm:"Нажмите на фото, чтобы рассмотреть. Это образцы стилей и форм: изготовим похожую модель по вашим размерам и материалам.",lbbtn:"Заказать похожее",lbl_name:"Имя",lbl_tel:"Телефон",ct1:"Телефон",ct2:"Адрес мастерской",addr2:"г. Киев, ул. Кирилловская, 102",map:"Открыть на карте",ct3:"График",hours:"Ежедневно, круглосуточно",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
 h1:"Мебель, сделанная под ваш дом",
 h1p:"Кухни, шкафы, спальни и гостиные по вашим размерам. Собственное производство, гарантия 1 год, доставка по Киеву после оплаты.",
 b1:"Смотреть каталог",b2:"Рассчитать по размерам",
