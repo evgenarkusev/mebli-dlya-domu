@@ -17,10 +17,48 @@
 <meta property="og:url" content="https://evgenarkusev.github.io/mebli-dlya-domu/">
 <meta property="og:image" content="https://evgenarkusev.github.io/mebli-dlya-domu/images/hero.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FurnitureStore","name":"Меблі для дому","url":"https://evgenarkusev.github.io/mebli-dlya-domu/","image":"https://evgenarkusev.github.io/mebli-dlya-domu/images/hero.jpg","telephone":"+380994540803","address":{"@type":"PostalAddress","streetAddress":"вул. Кирилівська, 102","addressLocality":"Київ","addressCountry":"UA"},"areaServed":"Київ","openingHours":"Mo-Su 00:00-23:59"}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500 600;
+  font-display: swap;
+  src: url(fonts/fraunces-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500 600;
+  font-display: swap;
+  src: url(fonts/fraunces-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/manrope-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/manrope-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/manrope-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Layout: світла тепла сторінка, один темно-зелений акцент, великі фото замість рядів однакових карток */
 :root{
   --bg:#121A16;--card:#1B2620;--sand:#17211C;--line:#2C3A32;
@@ -117,6 +155,10 @@ nav a:hover{color:var(--accent-t)}
 .cta form{display:grid;gap:12px}
 .cta input{padding:15px 16px;border:1px solid var(--line);background:var(--card);font:inherit;border-radius:2px;color:var(--text)}
 .cta .btn{padding:16px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.form-status{font-size:14px;line-height:1.5;padding:10px 14px;border-left:3px solid var(--accent-t);background:var(--card);color:var(--text)}
+.form-status.err{border-left-color:#E0705F}
+.cta input[aria-invalid="true"]{border-color:#E0705F}
 .consent{font-size:13px;color:var(--muted);line-height:1.5}
 .consent a{text-decoration:underline;color:var(--accent-t)}
 
@@ -335,7 +377,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   <div>
     <div class="eyebrow" data-t="e4">Про майстерню</div>
     <h2 data-t="h2a">Робимо меблі самі, від ескізу до збирання</h2>
-    <p data-t="ap">Наша майстерня працює в Києві на Кирилівській, 102. Ми виготовляємо корпусні меблі з ЛДСП, МДФ та масиву, підбираємо розміри під ваше приміщення й відповідаємо за результат.</p>
+    <p data-t="ap">Наша майстерня працює в Києві на Кирилівській, 102. Ми виготовляємо корпусні меблі, підбираємо розміри під ваше приміщення й відповідаємо за результат.</p>
     <ul>
       <li data-t="al1">Розміри та кольори під ваш інтер’єр</li>
       <li data-t="al2">Безкоштовний замір у Києві</li>
@@ -348,7 +390,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
 
 <section class="cta" id="contact"><div class="wrap">
   <div><h2 data-t="h2f">Розрахуємо вартість ваших меблів безкоштовно</h2><p data-t="fp">Залиште номер: передзвонимо протягом години, цілодобово.</p></div>
-  <form onsubmit="return false"><input id="f-name" placeholder="Ім’я" data-p="ph_name" autocomplete="name"><input id="f-tel" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel"><button class="btn" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p></form>
+  <form id="lead" novalidate><label class="sr" for="f-name" data-t="lbl_name">Ім’я</label><input id="f-name" name="name" placeholder="Ім’я" data-p="ph_name" autocomplete="name" required><label class="sr" for="f-tel" data-t="lbl_tel">Телефон</label><input id="f-tel" name="phone" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel" required><button class="btn" type="submit" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p><p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p></form>
 </div></section>
 
 <div class="legal-head"><div class="wrap"><div class="eyebrow" data-t="e5">Інформація для покупців</div></div></div>
@@ -726,7 +768,7 @@ function swapSections(l){
 const RU={
 top:"Киев, ул. Кирилловская, 102 · Работаем 24/7 · +38 (099) 454-08-03",
 n1:"Каталог",n2:"Под заказ",n3:"О мастерской",n4:"Доставка и оплата",n5:"Гарантия",n6:"Условия продажи",n7:"Контакты",
-n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",all:"Все",e6:"Каталог образцов",h2m:"Выберите модель",subm:"Нажмите на фото, чтобы рассмотреть. Это образцы стилей и форм: изготовим похожую модель по вашим размерам и материалам.",lbbtn:"Заказать похожее",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
+n8:"Политика конфиденциальности",consent:"Отправляя заявку, вы соглашаетесь с <a href=\"#privacy\">Политикой конфиденциальности</a>.",all:"Все",e6:"Каталог образцов",h2m:"Выберите модель",subm:"Нажмите на фото, чтобы рассмотреть. Это образцы стилей и форм: изготовим похожую модель по вашим размерам и материалам.",lbbtn:"Заказать похожее",lbl_name:"Имя",lbl_tel:"Телефон",callbtn:"Позвонить",eyebrow:"Собственная мастерская · Киев",
 h1:"Мебель, сделанная под ваш дом",
 h1p:"Кухни, шкафы, спальни и гостиные по вашим размерам. Собственное производство, гарантия 1 год, доставка по Киеву после оплаты.",
 b1:"Смотреть каталог",b2:"Рассчитать по размерам",
@@ -746,7 +788,7 @@ s2:"Проект и цена",s2p:"Делаем эскиз и фиксируем
 s3:"Изготовление",s3p:"Производим в собственной мастерской и показываем процесс на фото.",
 s4:"Доставка и сборка",s4p:"Привозим, собираем и даём гарантию на изделие.",
 e4:"О мастерской",h2a:"Делаем мебель сами, от эскиза до сборки",
-ap:"Наша мастерская работает в Киеве на Кирилловской, 102. Мы изготавливаем корпусную мебель из ЛДСП, МДФ и массива, подбираем размеры под ваше помещение и отвечаем за результат.",
+ap:"Наша мастерская работает в Киеве на Кирилловской, 102. Мы изготавливаем корпусную мебель, подбираем размеры под ваше помещение и отвечаем за результат.",
 al1:"Размеры и цвета под ваш интерьер",al2:"Бесплатный замер в Киеве",al3:"Гарантия 1 год на все изделия",
 h2f:"Рассчитаем стоимость вашей мебели бесплатно",fp:"Оставьте номер: перезвоним в течение часа, круглосуточно.",send:"Отправить заявку",
 e5:"Информация для покупателей",
@@ -794,6 +836,22 @@ document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dat
   document.addEventListener("keydown",function(e){
     if(lb.hidden) return;
     if(e.key==="Escape")close(); else if(e.key==="ArrowLeft")show(cur-1); else if(e.key==="ArrowRight")show(cur+1);
+  });
+})();
+</script>
+<script>
+(function(){
+  var f=document.getElementById("lead"),st=document.getElementById("f-status");
+  var T={uk:{err:"Вкажіть ім’я та номер телефону.",ok:"Дякуємо! Це демонстраційна версія сайту, тому заявку ще не надіслано. Зателефонуйте нам: +38 (099) 454-08-03."},
+         ru:{err:"Укажите имя и номер телефона.",ok:"Спасибо! Это демонстрационная версия сайта, поэтому заявка ещё не отправлена. Позвоните нам: +38 (099) 454-08-03."}};
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var l=document.documentElement.lang==="ru"?"ru":"uk";
+    var n=document.getElementById("f-name"),t=document.getElementById("f-tel");
+    var bad=!n.value.trim()||t.value.replace(/\D/g,"").length<9;
+    n.setAttribute("aria-invalid",!n.value.trim());t.setAttribute("aria-invalid",t.value.replace(/\D/g,"").length<9);
+    st.hidden=false;st.classList.toggle("err",bad);st.textContent=bad?T[l].err:T[l].ok;
+    if(bad){(!n.value.trim()?n:t).focus()}
   });
 })();
 </script>
