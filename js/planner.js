@@ -19,6 +19,7 @@
       bad:"Червоним позначено предмети, що перетинаються або закривають двері.",tight:"Меблі займають понад 45% підлоги, проходи можуть бути тісними.",
       wallTip:"Потягніть, щоб звузити або розширити кімнату",doorTip:"Потягніть, щоб перемістити двері",
       load3:"Завантажуємо 3D…",fail3:"3D не підтримується цим браузером, показуємо 2D план.",
+      rside:"Права сторона, см",next:"В інший кут",rotT:"Повернути",lside:"Ліва сторона, см",wid:"Ширина, см",cornerG:"Кутові меблі",
       plan:"План кімнати",own:"✎ Свій предмет: назва й розмір",att:"До заявки додано план: ",items:"предметів",rmAtt:"Прибрати план із заявки",furn:"Меблі"},
     ru:{rooms:{kitchen:"Кухня",bedroom:"Спальня",living:"Гостиная",kids:"Детская",hallway:"Прихожая"},
       walls:["верхней","правой","нижней","левой"],area:"Площадь пола",per:"Периметр",wall:"Площадь стен без окон и дверей",vol:"Объём",occ:"Под мебелью",free:"Свободная площадь",
@@ -27,6 +28,7 @@
       bad:"Красным отмечены предметы, которые пересекаются или закрывают дверь.",tight:"Мебель занимает больше 45% пола, проходы могут быть тесными.",
       wallTip:"Потяните, чтобы сузить или расширить комнату",doorTip:"Потяните, чтобы переместить дверь",
       load3:"Загружаем 3D…",fail3:"3D не поддерживается этим браузером, показываем 2D план.",
+      rside:"Правая сторона, см",next:"В другой угол",rotT:"Повернуть",lside:"Левая сторона, см",wid:"Ширина, см",cornerG:"Угловая мебель",
       plan:"План комнаты",own:"✎ Свой предмет: название и размер",att:"К заявке добавлен план: ",items:"предметов",rmAtt:"Убрать план из заявки",furn:"Мебель"}};
   T.uk.walls=["верхній","правій","нижній","лівій"];
   /* w: ширина вздовж стіни, d: глибина, c: місце перед предметом, dyn: межі ширини для підбору, p: ціна «від» з каталогу (pw: для якої ширини) */
@@ -52,12 +54,16 @@
     shoe:{uk:"Тумба для взуття",ru:"Тумба для обуви",s:["Взуття","Обувь"],w:80,d:35,h:60,c:50},
     bench:{uk:"Банкетка",ru:"Банкетка",w:90,d:40,h:45,c:50},
     custom:{uk:"Свій предмет",ru:"Свой предмет",s:["Предмет","Предмет"],w:100,d:50,h:75},
+    cdesk:{uk:"Кутовий комп’ютерний стіл",ru:"Угловой компьютерный стол",s:["Стіл","Стол"],w:150,w2:120,d:60,h:75,corner:1},
+    csofa:{uk:"Кутовий диван",ru:"Угловой диван",s:["Диван","Диван"],w:260,w2:180,d:95,h:85,corner:1},
+    ckit:{uk:"Кутова кухня",ru:"Угловая кухня",s:["Кухня","Кухня"],w:240,w2:180,d:60,h:90,corner:1},
+    cward:{uk:"Кутова шафа",ru:"Угловой шкаф",s:["Шафа","Шкаф"],w:150,w2:120,d:60,h:220,corner:1,tall:1},
     hanger:{uk:"Відкрита вішалка",ru:"Открытая вешалка",s:["Вішалка","Вешалка"],w:80,d:30,h:180,c:50}
   };
   var DW=90;/* ширина дверного прорізу з коробкою, см */
   var SETS={bedroom:["bed160","bed140","bed90","night","ward","dresser"],living:["sofa","arm","ctable","tv","shelf","dresser"],
     kitchen:["kset","fridge","dt120","dt160","chair"],kids:["bed90","desk","ward","shelf","dresser"],hallway:["hward","shoe","bench","hanger"]};
-  var ROOMS=["bedroom","living","kitchen","kids","hallway"];
+  var ROOMS=["bedroom","living","kitchen","kids","hallway"],CORNER=["cdesk","csofa","ckit","cward"];
 
   var st={room:"bedroom",L:400,W:350,H:270,dn:1,wn:1,dw:2,dp:20,items:[],edited:false},sel=null,skipped=[],uid=1,drag=null,nodes={},attached=false;
   var V3=null,view="3d",vbFrozen=null,rd=null;
@@ -74,7 +80,22 @@
   function snap(v){return Math.round(v/5)*5}
 
   /* Геометрія */
-  function fp(it){return it.o%2?{x:it.x,y:it.y,w:it.d,h:it.w}:{x:it.x,y:it.y,w:it.w,h:it.d}}
+  /* Кутовий предмет (corner): w — права сторона, w2 — ліва, d — глибина обох сторін.
+     При o=0 стоїть у верхньому лівому куті: права сторона вздовж верхньої стіни, ліва вздовж лівої;
+     кожен поворот переносить його в наступний кут за годинниковою стрілкою. */
+  function isC(it){return!!LIB[it.k].corner}
+  function cd(it){return Math.min(it.d,it.w-10,it.w2-10)}
+  function fp(it){var bw=it.w,bh=isC(it)?it.w2:it.d;return it.o%2?{x:it.x,y:it.y,w:bh,h:bw}:{x:it.x,y:it.y,w:bw,h:bh}}
+  function parts(it){
+    var f=fp(it);if(!isC(it))return[f];
+    var bw=it.w,bh=it.w2,d=cd(it),t,rs=[{x:0,y:0,w:bw,h:d},{x:0,y:d,w:d,h:bh-d}];
+    for(var i=0;i<it.o;i++){rs=rs.map(function(r){return{x:bh-(r.y+r.h),y:r.x,w:r.h,h:r.w}});t=bw;bw=bh;bh=t}
+    return rs.map(function(r){return{x:f.x+r.x,y:f.y+r.y,w:r.w,h:r.h}});
+  }
+  function ovR(it,r){return parts(it).some(function(p){return ov(p,r)})}
+  function ovIt(a,b){var pb=parts(b);return parts(a).some(function(p){return pb.some(function(q){return ov(p,q)})})}
+  function area(it){return parts(it).reduce(function(s,r){return s+r.w*r.h},0)}
+  function dims(it){return(isC(it)?it.w+" + "+it.w2:it.w)+" × "+it.d+" × "+hOf(it)}
   function ov(a,b){return a.x<b.x+b.w-.5&&b.x<a.x+a.w-.5&&a.y<b.y+b.h-.5&&b.y<a.y+a.h-.5}
   function inRoom(r){return r.x>-.5&&r.y>-.5&&r.x+r.w<st.L+.5&&r.y+r.h<st.W+.5}
   function wlen(w){return w%2?st.W:st.L}
@@ -95,10 +116,10 @@
   }
   function canPlace(it,placed){
     var f=fp(it),c=clr(it),dz=doorZone(),wz=winZone();
-    if(!inRoom(f)||(dz&&ov(f,dz))||(c&&!inRoom(c))||(LIB[it.k].tall&&wz&&ov(f,wz)))return false;
+    if(!inRoom(f)||(dz&&ovR(it,dz))||(c&&!inRoom(c))||(LIB[it.k].tall&&wz&&ovR(it,wz)))return false;
     for(var i=0;i<placed.length;i++){
-      var p=placed[i],pf=fp(p),pc=clr(p);
-      if(ov(f,pf)||(c&&ov(c,pf))||(pc&&ov(f,pc)))return false;
+      var p=placed[i],pc=clr(p);
+      if(ovIt(it,p)||(c&&ovR(p,c))||(pc&&ovR(it,pc)))return false;
     }
     return true;
   }
@@ -144,7 +165,7 @@
     for(var x=0;x<=st.L;x+=10)for(var y=0;y<=st.W;y+=10){
       var it={k:k,w:b.w,d:b.d,o:o,x:x,y:y},f=fp(it),r={x:f.x-m,y:f.y-m,w:f.w+2*m,h:f.h+2*m};
       if(!inRoom(r)||(dz&&ov(r,dz))||!canPlace(it,placed))continue;
-      if(placed.some(function(p){return ov(r,fp(p))}))continue;
+      if(placed.some(function(p){return ovR(p,r)}))continue;
       var dd=Math.pow(f.x+f.w/2-st.L/2,2)+Math.pow(f.y+f.h/2-st.W/2,2);
       if(dd<bd){bd=dd;best=it}
     }
@@ -246,7 +267,13 @@
   function build(it,parent){
     var g=el("g",{"class":"it",tabindex:0,role:"button"},parent),b=el("g",{},g),w=it.w,d=it.d,k=it.k,i;
     var ttl=el("title",{},g);
-    el("rect",{"class":"b",x:-w/2,y:-d/2,width:w,height:d,rx:3},b);
+    if(isC(it)){
+      var w2=it.w2,cdp=cd(it),x0=-w/2,y0=-w2/2;
+      el("path",{"class":"b",d:"M"+x0+" "+y0+"H"+(w/2)+"V"+(y0+cdp)+"H"+(x0+cdp)+"V"+(w2/2)+"H"+x0+"Z"},b);
+      if(k==="csofa")el("path",{"class":"dt",d:"M"+(w/2)+" "+(y0+22)+"H"+(x0+22)+"V"+(w2/2)},b);
+      else if(k==="cward")el("path",{"class":"dt",d:"M"+(w/2)+" "+(y0+cdp/2)+"H"+(x0+cdp/2)+"V"+(w2/2)},b);
+      else if(k==="ckit")el("path",{"class":"dt",d:"M"+(w/2)+" "+(y0+cdp-6)+"H"+(x0+cdp-6)+"V"+(w2/2)},b);
+    }else el("rect",{"class":"b",x:-w/2,y:-d/2,width:w,height:d,rx:3},b);
     if(k.indexOf("bed")===0){
       var n=w>=140?2:1,pw=(w-20-(n-1)*10)/n;
       for(i=0;i<n;i++)el("rect",{"class":"dt",x:-w/2+10+i*(pw+10),y:-d/2+8,width:pw,height:30,rx:4},b);
@@ -333,15 +360,18 @@
   svg.addEventListener("pointerup",endRoomDrag);svg.addEventListener("pointercancel",endRoomDrag);
   function rotate(it){
     var f=fp(it),cx=f.x+f.w/2,cy=f.y+f.h/2;it.o=(it.o+1)%4;
-    var n=fp(it);it.x=snap(cx-n.w/2);it.y=snap(cy-n.h/2);clamp(it);sel=it.id;st.edited=true;update();save();
+    var n=fp(it);it.x=snap(cx-n.w/2);it.y=snap(cy-n.h/2);
+    /* кутовий предмет переходить у наступний кут кімнати */
+    if(isC(it)){it.x=it.o===1||it.o===2?st.L-n.w:0;it.y=it.o>=2?st.W-n.h:0}
+    clamp(it);sel=it.id;st.edited=true;update();save();
   }
   function remove(it){st.items=st.items.filter(function(x){return x!==it});sel=null;st.edited=true;draw();save()}
   function refocus(it){var n=nodes[it.id];if(n)n.g.focus({preventScroll:true})}
   function badSet(){
     var bad={},dz=doorZone(),its=st.items;
     its.forEach(function(a,i){
-      var fa=fp(a);if(!inRoom(fa)||(dz&&ov(fa,dz)))bad[a.id]=1;
-      for(var j=i+1;j<its.length;j++)if(ov(fa,fp(its[j]))){bad[a.id]=1;bad[its[j].id]=1}
+      if(!inRoom(fp(a))||(dz&&ovR(a,dz)))bad[a.id]=1;
+      for(var j=i+1;j<its.length;j++)if(ovIt(a,its[j])){bad[a.id]=1;bad[its[j].id]=1}
     });
     return bad;
   }
@@ -351,10 +381,12 @@
       var n=nodes[it.id];if(!n)return;
       var f=fp(it),cx=f.x+f.w/2,cy=f.y+f.h/2,lab=shortNm(it);
       n.b.setAttribute("transform","translate("+cx+" "+cy+") rotate("+it.o*90+")");
-      var size=Math.min(fs*.8,(f.w-8)/Math.max(1,lab.length*.62),f.h*.42);
-      n.tx.setAttribute("x",cx);n.tx.setAttribute("y",cy);n.tx.setAttribute("font-size",size);
+      /* у кутового предмета підпис стоїть на довшій стороні, а не в порожньому куті */
+      var lr=f;if(isC(it)){var ps=parts(it);lr=ps[0].w*ps[0].h>=ps[1].w*ps[1].h?ps[0]:ps[1]}
+      var size=Math.min(fs*.8,(lr.w-8)/Math.max(1,lab.length*.62),lr.h*.42);
+      n.tx.setAttribute("x",lr.x+lr.w/2);n.tx.setAttribute("y",lr.y+lr.h/2);n.tx.setAttribute("font-size",size);
       n.tx.textContent=lab;n.tx.style.display=!lab||size<fs*.4?"none":"";
-      var full=nm(it)+", "+it.w+" × "+it.d+" "+tr("cm");
+      var full=nm(it)+", "+dims(it)+" "+tr("cm");
       n.ttl.textContent=full;n.g.setAttribute("aria-label",full);
       n.g.classList.toggle("sel",sel===it.id);n.g.classList.toggle("bad",!!bad[it.id]);
     });
@@ -362,18 +394,19 @@
     if(V3&&view==="3d")V3.sync(bad);
   }
   /* Редактор вибраного предмета */
-  var ed=$("pl-ed"),pe={n:$("pe-n"),w:$("pe-w"),d:$("pe-d"),h:$("pe-h"),x:$("pe-x"),y:$("pe-y")};
+  var ed=$("pl-ed"),pe={n:$("pe-n"),w:$("pe-w"),w2:$("pe-w2"),d:$("pe-d"),h:$("pe-h"),x:$("pe-x"),y:$("pe-y")};
   function cur(){return st.items.filter(function(i){return i.id===sel})[0]}
   function syncEd(force){
     var it=cur();ed.hidden=!it;if(!it)return;
-    var v={n:it.n||"",w:it.w,d:it.d,h:hOf(it),x:Math.round(it.x),y:Math.round(it.y)};
+    var v={n:it.n||"",w:it.w,w2:it.w2||"",d:it.d,h:hOf(it),x:Math.round(it.x),y:Math.round(it.y)};
+    $("pe-wl").textContent=tr(isC(it)?"rside":"wid");$("pe-w2l").textContent=tr("lside");pe.w2.parentNode.hidden=!isC(it);$("pe-rot").textContent=tr(isC(it)?"next":"rotT");
     Object.keys(pe).forEach(function(k){if(force||document.activeElement!==pe[k])pe[k].value=v[k]});
     pe.n.placeholder=LIB[it.k][lg()];
   }
   pe.n.addEventListener("input",function(){var it=cur();if(!it)return;it.n=pe.n.value.trim().slice(0,40)||undefined;st.edited=true;update();save()});
-  ["w","d"].forEach(function(k){
+  ["w","w2","d"].forEach(function(k){
     pe[k].addEventListener("input",function(){
-      var it=cur(),v=Math.round(parseFloat(pe[k].value));if(!it||!(v>=20&&v<=(k==="w"?600:400)))return;
+      var it=cur(),v=Math.round(parseFloat(pe[k].value));if(!it||!(v>=20&&v<=(k==="d"?400:600))||(k==="w2"&&!isC(it)))return;
       it[k]=v;clamp(it);st.edited=true;draw();save();
     });
   });
@@ -395,7 +428,7 @@
   /* Бічна частина: показники, список, попередження */
   function side(bad){
     var A=st.L*st.W/1e4,P=2*(st.L+st.W)/100,H=st.H/100,Wl=Math.max(0,P*H-st.dn*1.6-st.wn*2.1),occ=0;
-    st.items.forEach(function(it){occ+=it.w*it.d/1e4});
+    st.items.forEach(function(it){occ+=area(it)/1e4});
     var pct=A?Math.round(occ/A*100):0,rows=[[tr("area"),fmt(A)+" "+tr("m2")],[tr("per"),fmt(P)+" "+tr("m")],[tr("wall"),fmt(Wl,1)+" "+tr("m2")],
       [tr("vol"),fmt(A*H,1)+" "+tr("m3")],[tr("occ"),fmt(occ)+" "+tr("m2")+"<small>"+pct+"%</small>"],[tr("free"),fmt(Math.max(0,A-occ))+" "+tr("m2")]];
     $("pl-stats").innerHTML=rows.map(function(r){return"<div><dt>"+r[0]+"</dt><dd>"+r[1]+"</dd></div>"}).join("");
@@ -404,7 +437,7 @@
     st.items.forEach(function(it){
       var li=document.createElement("li");li.className=(sel===it.id?"sel ":"")+(bad[it.id]?"bad":"");
       var b=document.createElement("button");b.type="button";b.className="nm";b.textContent=nm(it);
-      var sm=document.createElement("small");sm.textContent=it.w+" × "+it.d+" × "+hOf(it)+" "+tr("cm");b.appendChild(sm);
+      var sm=document.createElement("small");sm.textContent=dims(it)+" "+tr("cm");b.appendChild(sm);
       b.onclick=function(){sel=it.id;update();ed.scrollIntoView({block:"nearest"})};
       var pr=document.createElement("span"),p=price(it);pr.className="pr"+(p?"":" q");pr.textContent=p?tr("from")+" "+money(p):tr("calc");
       var r=document.createElement("button");r.type="button";r.className="ib";r.textContent="⟳";r.title=tr("rot")+": "+nm(it);r.setAttribute("aria-label",r.title);r.onclick=function(){rotate(it)};
@@ -426,6 +459,7 @@
     });
     dwSel.innerHTML=tr("walls").map(function(w,i){return"<option value='"+i+"'>"+w+"</option>"}).join("");dwSel.value=st.dw;
     var h="<option value=''>"+tr("add")+"</option><option value='custom'>"+tr("own")+"</option>",order=[st.room].concat(ROOMS.filter(function(r){return r!==st.room}));
+    h+="<optgroup label='"+tr("cornerG")+"'>"+CORNER.map(function(k){return"<option value='"+k+"'>"+LIB[k][lg()]+"</option>"}).join("")+"</optgroup>";
     order.forEach(function(r){h+="<optgroup label='"+tr("rooms")[r]+"'>"+SETS[r].map(function(k){return"<option value='"+k+"'>"+LIB[k][lg()]+"</option>"}).join("")+"</optgroup>"});
     addSel.innerHTML=h;addSel.setAttribute("aria-label",tr("add").replace("+ ",""));
     if(attached)attach2form();
@@ -451,8 +485,16 @@
   dwSel.addEventListener("change",function(){st.dw=+dwSel.value;changed()});
   addSel.addEventListener("change",function(){
     var k=addSel.value;if(!LIB[k])return;addSel.value="";
-    var all=[0,1,2,3],it=placeWall(k,all,"center",st.items)||placeFree(k,0,st.items);
-    if(!it){var b=LIB[k];it={k:k,w:b.w,d:b.d,o:0,x:0,y:0};clamp(it);st.items.push(it)}
+    var b=LIB[k],all=[0,1,2,3],it=null;
+    if(b.corner){
+      /* кутовий предмет пробуємо поставити в кожен кут кімнати */
+      for(var o=0;o<4&&!it;o++){
+        var c={k:k,w:b.w,w2:b.w2,d:b.d,o:o,x:0,y:0},f=fp(c);
+        c.x=o===1||o===2?st.L-f.w:0;c.y=o>=2?st.W-f.h:0;
+        if(canPlace(c,st.items)){st.items.push(c);it=c}
+      }
+    }else it=placeWall(k,all,"center",st.items)||placeFree(k,0,st.items);
+    if(!it){it={k:k,w:b.w,d:b.d,o:0,x:0,y:0};if(b.corner)it.w2=b.w2;clamp(it);st.items.push(it)}
     it.id=uid++;sel=it.id;st.edited=true;draw();save();
     if(k==="custom"){ed.scrollIntoView({block:"nearest"});pe.n.focus();pe.n.select()}
   });
@@ -462,7 +504,7 @@
   function summary(){
     var A=st.L*st.W/1e4,head=tr("rooms")[st.room]+" "+fmt(st.L/100)+" × "+fmt(st.W/100)+" "+tr("m")+", "+tr("hgt")+" "+fmt(st.H/100)+" "+tr("m")+", "+fmt(A)+" "+tr("m2");
     return{head:head+", "+tr("items")+": "+st.items.length,
-      full:head+". "+tr("furn")+": "+st.items.map(function(it){return nm(it)+" "+it.w+"×"+it.d+"×"+hOf(it)}).join("; ")};
+      full:head+". "+tr("furn")+": "+st.items.map(function(it){return nm(it)+" "+dims(it).replace(/ /g,"")}).join("; ")};
   }
   function attach2form(){
     var box=$("f-plan"),s=summary();
@@ -487,13 +529,14 @@
       st.room=s.room;st.edited=!!s.edited;st.dw=((st.dw|0)%4+4)%4;st.L=lim(st.L);st.W=lim(st.W);fixDoor();
       st.items=(s.items||[]).filter(function(it){return LIB[it.k]&&[it.x,it.y,it.w,it.d,it.o].every(function(v){return typeof v==="number"})})
         .map(function(it){return{k:it.k,w:it.w,d:it.d,o:it.o%4,x:it.x,y:it.y,id:uid++,n:typeof it.n==="string"&&it.n?it.n.slice(0,40):undefined,
-          h:typeof it.h==="number"&&it.h>=5&&it.h<=300?it.h:undefined}});
+          h:typeof it.h==="number"&&it.h>=5&&it.h<=300?it.h:undefined,
+          w2:LIB[it.k].corner?(typeof it.w2==="number"&&it.w2>=20?it.w2:LIB[it.k].w2):undefined}});
       return true;
     }catch(_){return false}
   }
   /* 3D: three.js завантажується лише тоді, коли планувальник з’являється на екрані */
   var box3=$("pl-3d"),st3=$("pl-3s"),v3state=0;/* 0 не завантажено, 1 завантажується, 2 готово, 3 помилка */
-  var api={st:st,LIB:LIB,fp:fp,clamp:clamp,snap:snap,hOf:hOf,nm:nm,wlen:wlen,DW:DW,
+  var api={st:st,LIB:LIB,fp:fp,parts:parts,cd:cd,clamp:clamp,snap:snap,hOf:hOf,nm:nm,wlen:wlen,DW:DW,
     sel:function(id){if(id!==undefined){sel=id;update()}return sel},
     edited:function(){st.edited=true},update:update,save:save,
     resizeWall:resizeWall,moveDoor:moveDoor,afterRoomChange:afterRoomChange};

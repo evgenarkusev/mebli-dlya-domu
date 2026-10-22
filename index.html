@@ -296,7 +296,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
 .pl-views{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;margin-bottom:10px}
 .pl-views .filters,.pl-cam{margin:0;display:flex;gap:8px;flex-wrap:wrap}
 .pl-views [hidden]{display:none}
-.pl-canvas[hidden],.pl-3wrap[hidden],.pl-hint[hidden]{display:none}
+.pl-field[hidden],.pl-canvas[hidden],.pl-3wrap[hidden],.pl-hint[hidden]{display:none}
 .pl-3wrap{position:relative;border:1px solid var(--line);background:var(--sand)}
 .pl-3d{height:clamp(340px,64vh,620px);touch-action:none;cursor:grab}
 .pl-3d canvas{display:block;width:100%;height:100%;outline:none}
@@ -480,13 +480,14 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
         <div class="pl-ed-h" data-t="pl_ed">Вибраний предмет</div>
         <div class="pl-ed-g">
           <label class="pl-field pl-ed-n"><span data-t="pl_nm">Назва</span><input id="pe-n" type="text" maxlength="40" autocomplete="off"></label>
-          <label class="pl-field"><span data-t="pl_w">Ширина, см</span><input id="pe-w" type="number" inputmode="numeric" min="20" max="600" step="5"></label>
+          <label class="pl-field"><span id="pe-wl">Ширина, см</span><input id="pe-w" type="number" inputmode="numeric" min="20" max="600" step="5"></label>
+          <label class="pl-field" hidden><span id="pe-w2l">Ліва сторона, см</span><input id="pe-w2" type="number" inputmode="numeric" min="20" max="600" step="5"></label>
           <label class="pl-field"><span data-t="pl_d">Глибина, см</span><input id="pe-d" type="number" inputmode="numeric" min="20" max="400" step="5"></label>
           <label class="pl-field"><span data-t="pl_hh">Висота, см</span><input id="pe-h" type="number" inputmode="numeric" min="5" max="300" step="5"></label>
           <label class="pl-field"><span data-t="pl_x">Від лівої стіни, см</span><input id="pe-x" type="number" inputmode="numeric" min="0" step="5"></label>
           <label class="pl-field"><span data-t="pl_y">Від верхньої стіни, см</span><input id="pe-y" type="number" inputmode="numeric" min="0" step="5"></label>
         </div>
-        <div class="pl-ed-b"><button type="button" class="btn line" id="pe-rot" data-t="pl_rot">Повернути</button><button type="button" class="btn line" id="pe-del" data-t="pl_del">Прибрати</button><button type="button" class="btn" id="pe-ok" data-t="pl_ok">Готово</button></div>
+        <div class="pl-ed-b"><button type="button" class="btn line" id="pe-rot">Повернути</button><button type="button" class="btn line" id="pe-del" data-t="pl_del">Прибрати</button><button type="button" class="btn" id="pe-ok" data-t="pl_ok">Готово</button></div>
       </div>
       <p class="pl-hint" id="pl-hint2" data-t="pl_hint" hidden>Перетягуйте меблі мишею або пальцем. Зелені ручки на стінах звужують і розширюють кімнату, двері перетягуються вздовж стін. Натисніть на предмет, щоб вписати свою назву й розміри. Виділений предмет: стрілки рухають, R повертає, Delete прибирає.</p>
       <p class="pl-hint" id="pl-hint3" data-t="pl_hint3">Перетягуйте меблі й двері просто в 3D. Дальні стіни теж можна тягнути: так кімната звужується або розширюється. Перетягування по порожньому місцю обертає кімнату, коліщатко миші або два пальці змінюють масштаб.</p>

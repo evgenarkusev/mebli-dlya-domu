@@ -118,7 +118,32 @@ export function init(box, api){
     function B(bw,bh,bd,x,y,z,m){return mesh(m,bw,bh,bd,x,y+bh/2,z,g)}
     function legs(lw,ld,lh,ins,m){[-1,1].forEach(function(a){[-1,1].forEach(function(b){B(4,lh,4,a*(lw/2-ins),0,b*(ld/2-ins),m)})})}
     function grooves(n,hgt,y0,zf){for(var j=1;j<n;j++)B(.8,hgt,.6,-w/2+j*w/n,y0,zf,MAT.dark)}
-    if(k.indexOf("bed")===0){
+    if(api.LIB[k].corner){
+      /* кутовий: права сторона вздовж -z (ширина w), ліва вздовж -x (довжина w2), центр — середина габариту */
+      var w2=it.w2,cd=api.cd(it),x0=-w/2,z0=-w2/2,zc=z0+cd+(w2-cd)/2,l2=w2-cd;
+      var arms=function(hh,y,m,inset){B(w-(inset||0),hh,cd,(inset||0)/2,y,z0+cd/2,m);B(cd,hh,l2,x0+cd/2,y,zc,m)};
+      if(k==="cdesk"){
+        arms(3,h-3,MAT.wood);
+        [[w/2-4,z0+4],[w/2-4,z0+cd-4],[x0+4,w2/2-4],[x0+cd-4,w2/2-4],[x0+4,z0+4]].forEach(function(p){B(4,h-3,4,p[0],0,p[1],MAT.dark)});
+        B(40,h-20,cd-6,w/2-24,0,z0+cd/2,MAT.wood);
+        if(w-cd>=70){B(60,36,3,x0+cd+(w-cd)/2,h+10,z0+10,MAT.screen);B(14,10,12,x0+cd+(w-cd)/2,h,z0+10,MAT.metal)}
+      }else if(k==="csofa"){
+        arms(36,6,MAT.fabric);
+        B(w,h-6,20,0,6,z0+10,MAT.fabric);B(20,h-6,w2-20,x0+10,6,z0+20+(w2-20)/2,MAT.fabric);
+        B(18,52,cd,w/2-9,6,z0+cd/2,MAT.fabric);B(cd,52,18,x0+cd/2,6,w2/2-9,MAT.fabric);
+        B(w-38,10,cd-22,1,42,z0+20+(cd-22)/2,MAT.fabric2);
+        B(cd-22,10,l2-18,x0+20+(cd-22)/2,42,z0+cd+(l2-18)/2,MAT.fabric2);
+      }else if(k==="ckit"){
+        arms(10,0,MAT.dark,0);arms(h-14,10,MAT.white);arms(4,h-4,MAT.counter);
+        if(w-cd>=60)B(50,1,40,x0+cd+(w-cd)/2,h,z0+cd/2,MAT.steel);
+        if(l2>=60)B(48,1,56,x0+cd/2,h,zc,MAT.screen);
+        if(!(st.wn>0&&(it.o===(st.dw+2)%4||(it.o+3)%4===(st.dw+2)%4))){B(w,70,35,0,145,z0+17.5,MAT.white);B(35,70,w2-35,x0+17.5,145,z0+35+(w2-35)/2,MAT.white)}
+      }else if(k==="cward"){
+        arms(h,0,MAT.white);arms(4,h-4,MAT.wood);
+        for(i=1;i<Math.round(w/60);i++)B(.8,h-8,.6,x0+cd+(w-cd)*i/Math.round(w/60),4,z0+cd+.2,MAT.dark);
+        for(i=1;i<Math.round(w2/60);i++)B(.6,h-8,.8,x0+cd+.2,4,z0+cd+l2*i/Math.round(w2/60),MAT.dark);
+      }else arms(h,0,MAT.custom);
+    }else if(k.indexOf("bed")===0){
       legs(w,d,8,6,MAT.dark);B(w,22,d,0,8,0,MAT.wood);
       B(w-8,20,d-14,0,30,3,MAT.linen);
       B(w,h,8,0,0,-d/2+4,MAT.wood);
@@ -177,7 +202,7 @@ export function init(box, api){
     g.scale.setScalar(.01);g.userData.id=it.id;
     return{g:g,ol:ol};
   }
-  function modelKey(it){return[it.k,it.w,it.d,api.hOf(it),it.k==="kset"&&st.wn>0&&it.o===(st.dw+2)%4?1:0].join()}
+  function modelKey(it){return[it.k,it.w,it.w2,it.d,it.k==="ckit"?it.o+"/"+st.dw+"/"+st.wn:"",api.hOf(it),it.k==="kset"&&st.wn>0&&it.o===(st.dw+2)%4?1:0].join()}
   function drop(id){var m=meshes[id];itemsG.remove(m.g);disposeTree(m.g);m.ol.material.dispose();delete meshes[id]}
 
   /* Камера */
