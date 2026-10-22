@@ -215,7 +215,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
 .lb-p{left:12px}.lb-nx{right:12px}
 .lb button:focus-visible{outline:2px solid var(--accent-t)}
 @media(max-width:560px){.gallery{columns:2 140px;column-gap:10px}.g{margin-bottom:10px}.g .cap{font-size:13px;left:8px;bottom:6px}.lb-n{width:40px;height:52px}.pill{padding:7px 12px;font-size:13px}}
-@media(max-width:1180px){
+@media(max-width:1400px){
   header .wrap{flex-wrap:wrap;gap:12px 20px;padding-block:12px}
   .logo{flex:1}
   nav{order:3;flex:0 0 100%;overflow-x:auto;gap:24px;padding-bottom:2px;scrollbar-width:none}
@@ -252,6 +252,90 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   header .btn{padding:10px 16px}
 }
 @media(max-width:480px){header .btn{display:none}.top .wrap{font-size:12px}}
+/* Планувальник кімнати */
+.pl{display:grid;grid-template-columns:340px minmax(0,1fr);gap:36px;align-items:start}
+.pl-side{display:grid;gap:22px}
+.pl-rooms{margin:0}
+.pl-dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pl-field{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.pl-field input,.pl-field select,.pl-acts select{width:100%;min-width:0;padding:11px 10px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:15px;border-radius:2px}
+.pl-field input[aria-invalid="true"]{border-color:#E0705F}
+.pl-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.pl-stats div{background:var(--bg);padding:12px 14px}
+.pl-stats div:first-child,.pl-stats div:last-child:nth-child(even){grid-column:span 2}
+.pl-stats dt{font-size:12px;color:var(--muted);line-height:1.4}
+.pl-stats dd{font-family:var(--display);font-size:22px;line-height:1.3}
+.pl-stats div:first-child dd{font-size:34px;color:var(--accent-t)}
+.pl-stats dd small{font-family:var(--body);font-size:13px;color:var(--muted);margin-left:6px}
+.pl-canvas{background:var(--sand);border:1px solid var(--line);padding:10px}
+.pl-canvas svg{display:block;width:100%;height:auto;max-height:72vh;user-select:none;-webkit-user-select:none}
+.pl-fl{fill:var(--card)}
+.pl-wall{fill:none;stroke:var(--text);stroke-width:8}
+.pl-grid{stroke:var(--line);stroke-width:1}
+.pl-grid.m{stroke-width:2}
+.pl-gap{fill:var(--sand)}
+.pl-door{fill:none;stroke:var(--accent-t);stroke-width:2.5}
+.pl-win{fill:rgba(154,209,174,.35);stroke:var(--accent-t);stroke-width:2}
+.pl-dim{fill:var(--muted);font-family:var(--body);text-anchor:middle;dominant-baseline:central}
+.it{cursor:grab;touch-action:none;outline:none}
+.it:active{cursor:grabbing}
+.it .b{fill:rgba(63,125,92,.42);stroke:var(--accent-t);stroke-width:2}
+.it .dt{fill:none;stroke:var(--accent-t);stroke-width:1.5;opacity:.75}
+.it text{fill:var(--text);font-family:var(--body);font-weight:600;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.it.sel .b{fill:rgba(154,209,174,.5);stroke:#fff;stroke-width:3}
+.it:focus-visible .b{stroke:#fff;stroke-width:4}
+.it.bad .b{fill:rgba(224,112,95,.4);stroke:#E0705F}
+.pl-ed{margin-top:12px;padding:14px 16px 16px;background:var(--card);border:1px solid var(--accent-t)}
+.pl-ed[hidden]{display:none}
+.pl-ed-h{font-weight:700;margin-bottom:10px}
+.pl-ed-g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end}
+.pl-ed-n{grid-column:1/-1}
+.pl-ed-b{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pl-ed-b .btn{padding:9px 18px}
+@media(max-width:760px){.pl-ed-g{grid-template-columns:1fr 1fr 1fr}.pl-ed-n{grid-column:1/-1}.pl-3d{height:min(58vh,440px)}}
+.pl-views{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;margin-bottom:10px}
+.pl-views .filters,.pl-cam{margin:0;display:flex;gap:8px;flex-wrap:wrap}
+.pl-views [hidden]{display:none}
+.pl-canvas[hidden],.pl-3wrap[hidden],.pl-hint[hidden]{display:none}
+.pl-3wrap{position:relative;border:1px solid var(--line);background:var(--sand)}
+.pl-3d{height:clamp(340px,64vh,620px);touch-action:none;cursor:grab}
+.pl-3d canvas{display:block;width:100%;height:100%;outline:none}
+.pl-3s{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;pointer-events:none}
+.pl-3s[hidden]{display:none}
+.pl-wh .pl-hit,.pl-dh .pl-hit{fill:transparent}
+.pl-wh.h{cursor:ns-resize}.pl-wh.v{cursor:ew-resize}.pl-dh{cursor:move}
+.pl-grip{fill:var(--accent-t);opacity:.85}
+.pl-dh:hover .pl-door{stroke:#fff}
+.pl-hint{font-size:13px;color:var(--muted);margin:10px 0 28px;line-height:1.5}
+.pl-fhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.pl-fhead h3{font-size:24px}
+.pl-acts{display:flex;gap:10px;flex-wrap:wrap}
+.pl-acts select{width:auto;padding:11px 12px}
+.pl-acts .btn{padding:11px 18px}
+.pl-list{list-style:none;display:grid;gap:6px;margin-bottom:14px}
+.pl-list li{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;background:var(--card);border:1px solid var(--line)}
+.pl-list li.sel{border-color:var(--accent-t)}
+.pl-list li.bad{border-color:#E0705F}
+.pl-list li.empty{color:var(--muted);padding:14px}
+.pl-list .nm{flex:1;min-width:0;background:none;border:0;color:inherit;font:inherit;font-weight:600;text-align:left;cursor:pointer;padding:2px 0}
+.pl-list .nm small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+.pl-list .pr{font-size:14px;font-weight:700;white-space:nowrap}
+.pl-list .pr.q{font-weight:400;color:var(--muted)}
+.ib{flex:none;width:36px;height:36px;background:none;border:1px solid var(--line);color:var(--text);font-size:18px;line-height:1;cursor:pointer;border-radius:2px}
+.ib:hover{border-color:var(--accent-t);color:var(--accent-t)}
+#pl-warn{margin-bottom:14px}
+.pl-send{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px}
+.pl-send p{flex:1;min-width:220px;font-size:13px;color:var(--muted);line-height:1.5}
+.pl-att{display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.45;padding:10px 12px;border-left:3px solid var(--accent-t);background:var(--card)}
+.pl-att[hidden]{display:none}
+.pl-att span{flex:1}
+@media(max-width:1020px){.pl{grid-template-columns:1fr;gap:24px}}
+@media(max-width:560px){
+  .pl-dims{gap:8px}.pl-field input,.pl-field select{padding:10px 8px}
+  .pl-list .pr{display:none}.pl-list li.sel .pr{display:block}
+  .pl-acts,.pl-acts select,.pl-send .btn{width:100%}.pl-acts .btn{flex:1}
+}
+
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -266,6 +350,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   <a class="logo" href="#">Меблі для дому</a>
   <nav>
     <a href="#cats" data-t="n1">Каталог</a>
+    <a href="#planner" data-t="n9">Планувальник</a>
     <a href="#how" data-t="n2">Під замовлення</a>
     <a href="#about" data-t="n3">Про майстерню</a>
     <a href="#delivery" data-t="n4">Доставка і оплата</a>
@@ -281,7 +366,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
     <div class="eyebrow" data-t="eyebrow">Власна майстерня · Київ</div>
     <h1 data-t="h1">Меблі, зроблені під ваш дім</h1>
     <p data-t="h1p">Кухні, шафи, спальні та вітальні за вашими розмірами. Власне виробництво, гарантія 1 рік, доставка по Києву після оплати.</p>
-    <div class="btns"><a class="btn" href="#cats" data-t="b1">Дивитись каталог</a><a class="btn line" href="#contact" data-t="b2">Розрахувати за розмірами</a></div>
+    <div class="btns"><a class="btn" href="#cats" data-t="b1">Дивитись каталог</a><a class="btn line" href="#planner" data-t="b2">Розрахувати за розмірами</a></div>
   </div>
   <div class="pic"><img src="images/hero.jpg" alt="Світла вітальня з дерев’яними меблями"></div>
 </div></div>
@@ -369,6 +454,52 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
   </div>
 </div></section>
 
+<section class="plan" id="planner"><div class="wrap">
+  <div class="eyebrow" data-t="pl_e">Планувальник</div>
+  <h2 data-t="pl_h">Сплануйте кімнату й підберіть меблі</h2>
+  <p class="sub" data-t="pl_sub">Вкажіть розміри кімнати: порахуємо метраж і розставимо меблі, які в неї вміщаються. Предмети можна перетягувати й повертати, а готовий план надіслати майстрові.</p>
+  <div class="pl">
+    <div class="pl-side">
+      <div class="pl-field"><span data-t="pl_room">Тип кімнати</span><div class="filters pl-rooms" id="pl-rooms" role="group"></div></div>
+      <div class="pl-dims">
+        <label class="pl-field"><span data-t="pl_len">Довжина, м</span><input id="pl-L" type="number" inputmode="decimal" min="1.5" max="12" step="0.05"></label>
+        <label class="pl-field"><span data-t="pl_wid">Ширина, м</span><input id="pl-W" type="number" inputmode="decimal" min="1.5" max="12" step="0.05"></label>
+        <label class="pl-field"><span data-t="pl_hei">Висота, м</span><input id="pl-H" type="number" inputmode="decimal" min="2" max="4.5" step="0.05"></label>
+        <label class="pl-field"><span data-t="pl_doors">Дверей</span><input id="pl-dn" type="number" inputmode="numeric" min="0" max="6" step="1"></label>
+        <label class="pl-field"><span data-t="pl_wins">Вікон</span><input id="pl-wn" type="number" inputmode="numeric" min="0" max="6" step="1"></label>
+        <label class="pl-field"><span data-t="pl_dw">Двері на стіні</span><select id="pl-dw"></select></label>
+      </div>
+      <dl class="pl-stats" id="pl-stats"></dl>
+    </div>
+    <div class="pl-main">
+      <div class="pl-views"><div class="filters" role="group" aria-label="Вигляд"><button type="button" class="pill on" id="pl-v3" aria-pressed="true">3D</button><button type="button" class="pill" id="pl-v2" aria-pressed="false" data-t="pl_v2">2D план</button></div>
+        <div class="pl-cam"><button type="button" class="pill" id="pl-topv" data-t="pl_top">Вигляд згори</button><button type="button" class="pill" id="pl-reset" data-t="pl_reset">Скинути вигляд</button></div></div>
+      <div class="pl-3wrap"><div class="pl-3d" id="pl-3d"></div><p class="pl-3s" id="pl-3s" role="status" hidden>Завантажуємо 3D…</p></div>
+      <div class="pl-canvas" hidden><svg id="pl-svg" role="group"></svg></div>
+      <div class="pl-ed" id="pl-ed" hidden>
+        <div class="pl-ed-h" data-t="pl_ed">Вибраний предмет</div>
+        <div class="pl-ed-g">
+          <label class="pl-field pl-ed-n"><span data-t="pl_nm">Назва</span><input id="pe-n" type="text" maxlength="40" autocomplete="off"></label>
+          <label class="pl-field"><span data-t="pl_w">Ширина, см</span><input id="pe-w" type="number" inputmode="numeric" min="20" max="600" step="5"></label>
+          <label class="pl-field"><span data-t="pl_d">Глибина, см</span><input id="pe-d" type="number" inputmode="numeric" min="20" max="400" step="5"></label>
+          <label class="pl-field"><span data-t="pl_hh">Висота, см</span><input id="pe-h" type="number" inputmode="numeric" min="5" max="300" step="5"></label>
+          <label class="pl-field"><span data-t="pl_x">Від лівої стіни, см</span><input id="pe-x" type="number" inputmode="numeric" min="0" step="5"></label>
+          <label class="pl-field"><span data-t="pl_y">Від верхньої стіни, см</span><input id="pe-y" type="number" inputmode="numeric" min="0" step="5"></label>
+        </div>
+        <div class="pl-ed-b"><button type="button" class="btn line" id="pe-rot" data-t="pl_rot">Повернути</button><button type="button" class="btn line" id="pe-del" data-t="pl_del">Прибрати</button><button type="button" class="btn" id="pe-ok" data-t="pl_ok">Готово</button></div>
+      </div>
+      <p class="pl-hint" id="pl-hint2" data-t="pl_hint" hidden>Перетягуйте меблі мишею або пальцем. Зелені ручки на стінах звужують і розширюють кімнату, двері перетягуються вздовж стін. Натисніть на предмет, щоб вписати свою назву й розміри. Виділений предмет: стрілки рухають, R повертає, Delete прибирає.</p>
+      <p class="pl-hint" id="pl-hint3" data-t="pl_hint3">Перетягуйте меблі й двері просто в 3D. Дальні стіни теж можна тягнути: так кімната звужується або розширюється. Перетягування по порожньому місцю обертає кімнату, коліщатко миші або два пальці змінюють масштаб.</p>
+      <div class="pl-furn">
+        <div class="pl-fhead"><h3 data-t="pl_fh">Меблі в плані</h3><div class="pl-acts"><select id="pl-add" aria-label="Додати предмет"></select><button type="button" class="btn line" id="pl-auto" data-t="pl_auto">Підібрати заново</button></div></div>
+        <ul class="pl-list" id="pl-list"></ul>
+        <p class="form-status err" id="pl-warn" role="status" aria-live="polite" hidden></p>
+        <div class="pl-send"><button type="button" class="btn" id="pl-send" data-t="pl_send">Надіслати план майстру</button><p data-t="pl_note">Розміри орієнтовні: точні зніме майстер на безкоштовному замірі. Ціну вказано лише для моделей з каталогу.</p></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
 <section class="how" id="how"><div class="wrap">
   <div class="eyebrow" data-t="e3">Під замовлення</div>
   <h2 data-t="h2s">Від заявки до збирання</h2>
@@ -398,7 +529,7 @@ footer .copy{margin-top:36px;border-top:1px solid #2E4437;padding-top:18px;color
 <section class="cta" id="contact"><div class="wrap">
   <div><div class="eyebrow" data-t="n7">Контакти</div><h2 data-t="h2f">Розрахуємо вартість ваших меблів безкоштовно</h2><p data-t="fp">Залиште номер: передзвонимо протягом години, цілодобово.</p>
     <ul class="contacts"><li><b data-t="ct1">Телефон</b><a class="big" href="tel:+380994540803">+38 (099) 454-08-03</a></li><li><b data-t="ct2">Адреса майстерні</b><span data-t="addr2">м. Київ, вул. Кирилівська, 102</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%9A%D0%B8%D1%97%D0%B2%2C+%D0%B2%D1%83%D0%BB.+%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0%2C+102" target="_blank" rel="noopener" data-t="map">Відкрити на карті</a></li><li><b data-t="ct3">Графік</b><span data-t="hours">Щодня, цілодобово</span></li></ul></div>
-  <form id="lead" novalidate><label class="sr" for="f-name" data-t="lbl_name">Ім’я</label><input id="f-name" name="name" placeholder="Ім’я" data-p="ph_name" autocomplete="name" required><label class="sr" for="f-tel" data-t="lbl_tel">Телефон</label><input id="f-tel" name="phone" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel" required><button class="btn" type="submit" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p><p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p></form>
+  <form id="lead" novalidate><label class="sr" for="f-name" data-t="lbl_name">Ім’я</label><input id="f-name" name="name" placeholder="Ім’я" data-p="ph_name" autocomplete="name" required><label class="sr" for="f-tel" data-t="lbl_tel">Телефон</label><input id="f-tel" name="phone" placeholder="Телефон" data-p="ph_tel" type="tel" autocomplete="tel" required><div class="pl-att" id="f-plan" hidden><span></span><button type="button" class="ib" aria-label="Прибрати план із заявки">×</button></div><input type="hidden" name="plan" id="f-plan-v"><button class="btn" type="submit" data-t="send">Надіслати заявку</button><p class="consent" data-t="consent">Надсилаючи заявку, ви погоджуєтесь з <a href="#privacy">Політикою конфіденційності</a>.</p><p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p></form>
 </div></section>
 
 <div class="legal-head"><div class="wrap"><div class="eyebrow" data-t="e5">Інформація для покупців</div></div></div>
@@ -863,5 +994,6 @@ document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dat
   });
 })();
 </script>
+<script src="js/planner.js"></script>
 </body>
 </html>
